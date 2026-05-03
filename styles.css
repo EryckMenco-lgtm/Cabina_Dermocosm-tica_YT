@@ -119,6 +119,7 @@ ul { list-style: none; }
 }
 
 /* ---------- Navbar ---------- */
+
 #navbar {
   position: fixed;
   display: flex;
@@ -237,7 +238,7 @@ ul { list-style: none; }
 .hero-left {
   display: flex;
   flex-direction: column;
-  margin-top: 25%;
+  margin-top: 18%;
   padding: 8rem 5% 4rem 8%;
   position: relative;
   z-index: 2;
@@ -1626,6 +1627,7 @@ ul { list-style: none; }
   /* Hamburguesa */
   .hamburger { display: flex; }
   .nav-cta   { display: none; }
+
 
   .nav-links {
     position: fixed !important;

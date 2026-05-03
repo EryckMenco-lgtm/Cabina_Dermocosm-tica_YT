@@ -12,18 +12,22 @@ window.addEventListener('scroll', () => {
 const hamburger  = document.querySelector('.hamburger');
 const navLinks   = document.querySelector('.nav-links');
 const navOverlay = document.createElement('div');
+const navParent  = navLinks?.parentElement; // guardar padre original (nav-inner)
 
-// Mover nav-links al body para que position:fixed funcione desde el viewport
-document.body.appendChild(navLinks);
-
-// Crear overlay
 navOverlay.classList.add('nav-overlay');
 document.body.appendChild(navOverlay);
 
+function isMobile() {
+  return window.innerWidth <= 768;
+}
+
 function openMenu() {
+  if (!isMobile()) return;
+  // Mover al body solo en móvil para que fixed funcione desde el viewport
+  document.body.appendChild(navLinks);
   hamburger.classList.add('active');
-  navLinks.classList.add('open');
   requestAnimationFrame(() => {
+    navLinks.classList.add('open');
     navOverlay.classList.add('active');
   });
   document.body.style.overflow = 'hidden';
@@ -34,7 +38,23 @@ function closeMenu() {
   navLinks.classList.remove('open');
   navOverlay.classList.remove('active');
   document.body.style.overflow = '';
+  // Devolver nav-links a su lugar original después de la transición
+  setTimeout(() => {
+    if (!navLinks.classList.contains('open') && navParent && !isMobile()) {
+      navParent.appendChild(navLinks);
+    }
+  }, 360);
 }
+
+// Al cambiar tamaño de ventana, restaurar posición si pasa a desktop
+window.addEventListener('resize', () => {
+  if (!isMobile()) {
+    closeMenu();
+    if (navParent && navLinks.parentElement === document.body) {
+      navParent.appendChild(navLinks);
+    }
+  }
+});
 
 hamburger?.addEventListener('click', () => {
   navLinks.classList.contains('open') ? closeMenu() : openMenu();
