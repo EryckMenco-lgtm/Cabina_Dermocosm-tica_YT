@@ -1485,19 +1485,18 @@ ul { list-style: none; }
    OVERLAY MENÚ HAMBURGUESA
    ============================================================ */
 .nav-overlay {
-  display: none;
   position: fixed;
   inset: 0;
-  background: rgba(74, 55, 40, 0.45);
-  backdrop-filter: blur(2px);
+  background: rgba(74, 55, 40, 0.50);
   z-index: 998;
   opacity: 0;
-  transition: opacity 0.35s ease;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
 }
 
 .nav-overlay.active {
-  display: block;
   opacity: 1;
+  visibility: visible;
 }
 
 /* ============================================================
@@ -1529,25 +1528,15 @@ ul { list-style: none; }
     inset: 0;
     width: 100%;
     height: 100%;
+    border-radius: 0;
     box-shadow: none;
   }
   .sobre-img-main img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-  } 
-    .sobre-img-secondary {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    box-shadow: none;
+    object-fit: cover;
+    object-position: center top;
   }
-  .sobre-img-secondary img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  } 
   .sobre-img-secondary { display: none; }
   .sobre-decoration    { display: none; }
 
@@ -1639,11 +1628,11 @@ ul { list-style: none; }
   .nav-cta   { display: none; }
 
   .nav-links {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: auto;
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: auto !important;
     width: min(280px, 80vw);
     background: var(--blanco);
     flex-direction: column;
@@ -1656,6 +1645,7 @@ ul { list-style: none; }
     z-index: 999;
     box-shadow: -8px 0 40px rgba(74, 55, 40, 0.15);
     overflow-y: auto;
+    display: flex !important;
   }
 
   .nav-links.open { transform: translateX(0); }
