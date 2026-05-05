@@ -1636,7 +1636,7 @@ ul { list-style: none; }
     bottom: 0 !important;
     left: auto !important;
     width: min(280px, 80vw);
-    background: var(--blanco);
+    background: var(--beige-oscuro);
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
