@@ -12,7 +12,8 @@ window.addEventListener('scroll', () => {
 const hamburger  = document.querySelector('.hamburger');
 const navLinks   = document.querySelector('.nav-links');
 const navOverlay = document.createElement('div');
-const navParent  = navLinks?.parentElement; // guardar padre original (nav-inner)
+const navParent       = navLinks?.parentElement; // guardar padre original (nav-inner)
+const navLinksNextSib = navLinks?.nextElementSibling; // guardar posición original (antes de .nav-cta)
 
 navOverlay.classList.add('nav-overlay');
 document.body.appendChild(navOverlay);
@@ -41,7 +42,7 @@ function closeMenu() {
   // Devolver nav-links a su lugar original después de la transición
   setTimeout(() => {
     if (!navLinks.classList.contains('open') && navParent && !isMobile()) {
-      navParent.appendChild(navLinks);
+      navParent.insertBefore(navLinks, navLinksNextSib);
     }
   }, 360);
 }
@@ -51,7 +52,7 @@ window.addEventListener('resize', () => {
   if (!isMobile()) {
     closeMenu();
     if (navParent && navLinks.parentElement === document.body) {
-      navParent.appendChild(navLinks);
+      navParent.insertBefore(navLinks, navLinksNextSib);
     }
   }
 });
