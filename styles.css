@@ -27,7 +27,14 @@
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; font-size: 16px; }
+html { font-size: 16px; }
+/* Lenis (scroll suave físico) reemplaza el smooth nativo */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+/* Cuando no hay JS/Lenis, mantener el smooth nativo como respaldo */
+html:not(.lenis) { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
@@ -1831,4 +1838,348 @@ ul { list-style: none; }
 @media (min-width: 769px) {
   .nav-overlay { display: none !important; }
   .hamburger   { display: none; }
+}
+
+/* ============================================================
+   ✦ CAPA DINÁMICA — experiencia premium (GSAP + Lenis)
+   ============================================================ */
+
+/* ---------- Preloader ---------- */
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  background: var(--rosa-claro);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: clip-path, opacity;
+}
+.preloader-inner { text-align: center; }
+.preloader-logo {
+  width: 88px; height: 88px;
+  object-fit: contain;
+  margin: 0 auto 1.1rem;
+  animation: preloaderPulse 1.6s ease-in-out infinite;
+}
+.preloader-brand {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--cafe);
+  letter-spacing: 0.02em;
+  margin-bottom: 1.4rem;
+}
+.preloader-bar {
+  width: 170px; height: 2px;
+  background: rgba(184,154,106,0.22);
+  border-radius: 2px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.preloader-bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--dorado);
+  border-radius: 2px;
+}
+/* Fallback sin GSAP: ocultar al terminar la carga */
+#preloader.done { opacity: 0; visibility: hidden; transition: opacity 0.6s ease, visibility 0.6s ease; }
+body.is-loading { overflow: hidden; }
+@keyframes preloaderPulse {
+  0%, 100% { transform: scale(1);    opacity: 1;   }
+  50%      { transform: scale(1.06); opacity: 0.8; }
+}
+
+/* ---------- Barra de progreso de scroll ---------- */
+#scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--dorado), var(--rosa-medio));
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  z-index: 1001;
+  pointer-events: none;
+}
+
+/* ---------- Cursor personalizado (solo desktop con puntero fino) ---------- */
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+}
+.cursor-dot {
+  width: 7px; height: 7px;
+  background: var(--dorado);
+}
+.cursor-ring {
+  width: 38px; height: 38px;
+  border: 1.5px solid rgba(184,154,106,0.55);
+  transition: width 0.25s ease, height 0.25s ease,
+              background 0.25s ease, border-color 0.25s ease, opacity 0.3s ease;
+}
+body.has-cursor .cursor-dot,
+body.has-cursor .cursor-ring { opacity: 1; }
+.cursor-ring.is-hover {
+  width: 66px; height: 66px;
+  background: rgba(184,154,106,0.10);
+  border-color: rgba(184,154,106,0.85);
+}
+
+/* ---------- Grano cinematográfico ---------- */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  animation: grainShift 0.6s steps(3) infinite;
+}
+@keyframes grainShift {
+  0%   { transform: translate(0,0); }
+  33%  { transform: translate(-4%, 3%); }
+  66%  { transform: translate(3%, -2%); }
+  100% { transform: translate(0,0); }
+}
+
+/* ---------- Hero: aura + chispas ---------- */
+.hero-aura {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.aura-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(64px);
+}
+.aura-1 { width: 340px; height: 340px; background: var(--rosa);       top: 6%;  left: -6%;  opacity: 0.55; animation: auraFloatA 16s ease-in-out infinite; }
+.aura-2 { width: 260px; height: 260px; background: var(--dorado-claro); bottom: 8%; left: 16%; opacity: 0.40; animation: auraFloatB 20s ease-in-out infinite; }
+.aura-3 { width: 200px; height: 200px; background: var(--rosa-medio);  top: 40%; left: 30%;  opacity: 0.30; animation: auraFloatA 22s ease-in-out infinite reverse; }
+@keyframes auraFloatA { 0%,100% { transform: translate(0,0); } 50% { transform: translate(22px,-28px); } }
+@keyframes auraFloatB { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-26px,20px); } }
+
+.hero-sparkles i {
+  position: absolute;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 7px 1px rgba(255,236,200,0.95);
+  opacity: 0;
+  animation: twinkle 4.5s ease-in-out infinite;
+}
+.hero-sparkles i:nth-child(1)  { top: 18%; left: 12%; animation-delay: 0s;   }
+.hero-sparkles i:nth-child(2)  { top: 30%; left: 26%; animation-delay: 0.6s; }
+.hero-sparkles i:nth-child(3)  { top: 48%; left: 8%;  animation-delay: 1.2s; }
+.hero-sparkles i:nth-child(4)  { top: 62%; left: 20%; animation-delay: 1.8s; }
+.hero-sparkles i:nth-child(5)  { top: 22%; left: 40%; animation-delay: 2.4s; }
+.hero-sparkles i:nth-child(6)  { top: 70%; left: 34%; animation-delay: 0.3s; }
+.hero-sparkles i:nth-child(7)  { top: 38%; left: 46%; animation-delay: 1.5s; }
+.hero-sparkles i:nth-child(8)  { top: 80%; left: 14%; animation-delay: 2.1s; }
+.hero-sparkles i:nth-child(9)  { top: 12%; left: 30%; animation-delay: 3.0s; }
+.hero-sparkles i:nth-child(10) { top: 55%; left: 42%; animation-delay: 3.6s; }
+.hero-sparkles i:nth-child(11) { top: 88%; left: 28%; animation-delay: 0.9s; }
+.hero-sparkles i:nth-child(12) { top: 44%; left: 18%; animation-delay: 2.7s; }
+@keyframes twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.4); }
+  50%      { opacity: 1; transform: scale(1); }
+}
+
+/* ---------- Marquee ---------- */
+.marquee {
+  overflow: hidden;
+  background: var(--cafe);
+  padding: 1.05rem 0;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeMove 30s linear infinite;
+}
+.marquee-track span {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.3rem, 3vw, 2.2rem);
+  color: var(--dorado-claro);
+  white-space: nowrap;
+  padding-right: 1rem;
+}
+.marquee-track em { color: var(--rosa); font-style: normal; padding: 0 0.5rem; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes marqueeMove { to { transform: translateX(-50%); } }
+
+/* ---------- Tilt 3D + glare ---------- */
+.tilt {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--gx,50%) var(--gy,50%), rgba(255,255,255,0.32), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+.tilt:hover .tilt-glare { opacity: 1; }
+
+/* Suaviza el imán de los botones */
+.btn-primary, .nav-cta, .whatsapp-float { will-change: transform; }
+
+/* ---------- Comparador Antes / Después ---------- */
+.ba-slider {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+  border-radius: 16px 16px 0 0;
+  background: var(--beige-oscuro);
+  cursor: ew-resize;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.ba-img {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+.ba-before { clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0); }
+.ba-tag {
+  position: absolute;
+  top: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 50px;
+  z-index: 4;
+  pointer-events: none;
+}
+.ba-tag-antes   { left: 12px;  background: rgba(255,255,255,0.85); color: #8a6050; }
+.ba-tag-despues { right: 12px; background: var(--dorado);          color: #fff;    }
+.ba-handle {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: var(--pos, 50%);
+  width: 2px;
+  background: rgba(255,255,255,0.92);
+  transform: translateX(-1px);
+  z-index: 5;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.04);
+}
+.ba-grip {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dorado);
+  font-size: 13px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.28);
+  cursor: ew-resize;
+  transition: transform 0.2s ease;
+}
+.ba-slider:hover .ba-grip,
+.ba-handle:focus-visible .ba-grip { transform: translate(-50%, -50%) scale(1.12); }
+.ba-handle:focus-visible { outline: none; }
+
+/* ---------- Link activo del navbar (scrollspy) ---------- */
+.nav-links a.nav-active { color: var(--dorado); }
+.nav-links a.nav-active::after { width: 100%; }
+
+/* ---------- Proceso: barra de progreso ---------- */
+.proceso-progress {
+  position: absolute;
+  top: 40px;
+  left: 12%;
+  right: 12%;
+  height: 2px;
+  background: linear-gradient(to right, var(--rosa-medio), var(--dorado));
+  transform: scaleX(0);
+  transform-origin: left center;
+  z-index: 0;
+}
+
+/* ---------- Servicios: galería horizontal (solo escritorio) ---------- */
+.servicios-grid.is-horizontal {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  align-items: stretch;
+  grid-template-columns: none;
+}
+.servicios-grid.is-horizontal .servicio-card {
+  flex: 0 0 340px;
+  width: 340px;
+}
+
+/* ============================================================
+   ✦ RESPONSIVE de la capa dinámica (PARIDAD EN MÓVIL)
+   ============================================================ */
+@media (max-width: 1024px) {
+  /* En móvil el hero es una foto a pantalla: ocultamos los "blobs" de color
+     (ensuciarían la imagen) y dejamos solo los destellos por encima. */
+  .hero-aura { z-index: 1; }
+  .aura-blob { display: none; }
+  .hero-sparkles i { box-shadow: 0 0 8px 2px rgba(255,236,200,0.95); }
+}
+
+@media (max-width: 768px) {
+  .ba-slider { height: 300px; }
+  .preloader-logo { width: 74px; height: 74px; }
+  .preloader-brand { font-size: 1.15rem; }
+  .marquee { padding: 0.85rem 0; }
+}
+
+@media (max-width: 480px) {
+  .ba-slider { height: 260px; }
+  .ba-grip { width: 40px; height: 40px; }
+  .aura-1 { width: 230px; height: 230px; }
+  .aura-2 { width: 180px; height: 180px; }
+  .aura-3 { width: 150px; height: 150px; }
+  #scroll-progress { height: 2.5px; }
+}
+
+/* ---------- Puntero táctil: sin cursor custom (no aplica en móvil) ---------- */
+@media (hover: none), (pointer: coarse) {
+  .cursor-dot, .cursor-ring { display: none !important; }
+  .tilt-glare { display: none; }
+}
+
+/* ---------- Respeto a "reducir movimiento" ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .hero-sparkles, .aura-blob, .grain, .marquee-track,
+  .hero-scroll, .preloader-logo { animation: none !important; }
+  #preloader { display: none !important; }
+  .grain { display: none; }
 }

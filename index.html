@@ -23,6 +23,18 @@
 </head>
 <body>
 
+  <!-- ==================== PRELOADER ==================== -->
+  <div id="preloader" aria-hidden="true">
+    <div class="preloader-inner">
+      <img src="img/logooooo.svg" alt="" class="preloader-logo" />
+      <div class="preloader-brand">Cabina Dermocosmética YT</div>
+      <div class="preloader-bar"><span></span></div>
+    </div>
+  </div>
+
+  <!-- ==================== BARRA DE PROGRESO ==================== -->
+  <div id="scroll-progress" aria-hidden="true"></div>
+
   <!-- ==================== NAVBAR ==================== -->
   <nav id="navbar">
     <div class="container nav-inner">
@@ -56,6 +68,14 @@
   <!-- ==================== HERO ==================== -->
   <section id="inicio">
     <div id="hero">
+      <div class="hero-aura" aria-hidden="true">
+        <span class="aura-blob aura-1"></span>
+        <span class="aura-blob aura-2"></span>
+        <span class="aura-blob aura-3"></span>
+        <div class="hero-sparkles">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+      </div>
       <div class="hero-left">
         <div class="hero-eyebrow">
           <span>Cosmetología Profesional</span>
@@ -574,13 +594,14 @@
       </div>
       <div class="resultados-grid">
         <div class="result-card fade-up">
-          <div class="result-labels">
-            <div class="result-label result-antes">Antes</div>
-            <div class="result-label result-despues">Después</div>
-          </div>
-          <div class="result-imgs">
-            <img src="img/img27.jpg" alt="Antes tratamiento acné" />
-            <img src="img/img15.jpg" alt="Después tratamiento acné" />
+          <div class="ba-slider" data-ba style="--pos:50%">
+            <img class="ba-img ba-after"  src="img/img15.jpg" alt="Después tratamiento acné" />
+            <img class="ba-img ba-before" src="img/img27.jpg" alt="Antes tratamiento acné" />
+            <span class="ba-tag ba-tag-antes">Antes</span>
+            <span class="ba-tag ba-tag-despues">Después</span>
+            <div class="ba-handle" role="slider" tabindex="0" aria-label="Comparar antes y después" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="ba-grip"><i class="fas fa-arrows-left-right"></i></span>
+            </div>
           </div>
           <div class="result-info">
             <div class="result-treatment">Tratamiento para Acné</div>
@@ -588,13 +609,14 @@
           </div>
         </div>
         <div class="result-card fade-up">
-          <div class="result-labels">
-            <div class="result-label result-antes">Antes</div>
-            <div class="result-label result-despues">Después</div>
-          </div>
-          <div class="result-imgs">
-            <img src="img/img05.jpg" alt="Antes hidratación facial" />
-            <img src="img/img10.jpg" alt="Después hidratación facial" />
+          <div class="ba-slider" data-ba style="--pos:50%">
+            <img class="ba-img ba-after"  src="img/img10.jpg" alt="Después hidratación facial" />
+            <img class="ba-img ba-before" src="img/img05.jpg" alt="Antes hidratación facial" />
+            <span class="ba-tag ba-tag-antes">Antes</span>
+            <span class="ba-tag ba-tag-despues">Después</span>
+            <div class="ba-handle" role="slider" tabindex="0" aria-label="Comparar antes y después" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="ba-grip"><i class="fas fa-arrows-left-right"></i></span>
+            </div>
           </div>
           <div class="result-info">
             <div class="result-treatment">Hidratación Facial</div>
@@ -602,23 +624,31 @@
           </div>
         </div>
         <div class="result-card fade-up">
-          <div class="result-labels">
-            <div class="result-label result-antes">Antes</div>
-            <div class="result-label result-despues">Después</div>
-          </div>
-          <div class="result-imgs">
-            <img src="./img/img25.jpg" alt="Antes Depilación con Cera" />
-            <img src="./img/img14.jpg" alt="Después Depilación con Cera" />
+          <div class="ba-slider" data-ba style="--pos:50%">
+            <img class="ba-img ba-after"  src="./img/img14.jpg" alt="Después Depilación con Cera" />
+            <img class="ba-img ba-before" src="./img/img25.jpg" alt="Antes Depilación con Cera" />
+            <span class="ba-tag ba-tag-antes">Antes</span>
+            <span class="ba-tag ba-tag-despues">Después</span>
+            <div class="ba-handle" role="slider" tabindex="0" aria-label="Comparar antes y después" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <span class="ba-grip"><i class="fas fa-arrows-left-right"></i></span>
+            </div>
           </div>
           <div class="result-info">
             <div class="result-treatment">Depilación con Cera</div>
-            <div class="result-detail">Proporcionando una piel suave y libre de
-vello durante semanas</div>
+            <div class="result-detail">Piel suave y libre de vello durante semanas</div>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- ==================== MARQUEE ==================== -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Higiene Facial <em>✦</em> Hidratación <em>✦</em> Dermapen <em>✦</em> Microdermoabrasión <em>✦</em> Anti-manchas <em>✦</em> Peeling <em>✦</em> Hidra Lips <em>✦</em> Dermaplaning <em>✦</em> </span>
+      <span>Higiene Facial <em>✦</em> Hidratación <em>✦</em> Dermapen <em>✦</em> Microdermoabrasión <em>✦</em> Anti-manchas <em>✦</em> Peeling <em>✦</em> Hidra Lips <em>✦</em> Dermaplaning <em>✦</em> </span>
+    </div>
+  </div>
 
   <!-- ==================== PORTAFOLIO ==================== -->
   <section id="portafolio">
@@ -1025,6 +1055,16 @@ vello durante semanas</div>
   <a href="https://wa.me/573017270612?text=Hola%2C+quiero+agendar+una+cita" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Contactar por WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
+
+  <!-- ==================== Cursor personalizado / grano ==================== -->
+  <div class="cursor-ring" aria-hidden="true"></div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Librerías de animación (GSAP + ScrollTrigger + Lenis) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 
   <!-- JS -->
   <script src="script.js"></script>
