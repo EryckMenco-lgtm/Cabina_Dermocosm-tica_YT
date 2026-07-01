@@ -27,6 +27,7 @@ function openMenu() {
   // Mover al body solo en móvil para que fixed funcione desde el viewport
   document.body.appendChild(navLinks);
   hamburger.classList.add('active');
+  document.body.classList.add('menu-open');
   requestAnimationFrame(() => {
     navLinks.classList.add('open');
     navOverlay.classList.add('active');
@@ -39,6 +40,7 @@ function closeMenu() {
   hamburger.classList.remove('active');
   navLinks.classList.remove('open');
   navOverlay.classList.remove('active');
+  document.body.classList.remove('menu-open');
   document.body.style.overflow = '';
   window.lenis?.start();
   // Devolver nav-links a su lugar original después de la transición
@@ -296,6 +298,106 @@ document.querySelectorAll('.btn-samp[data-wa]').forEach(btn => {
 });
 
 /* ============================================================
+   ✦ Fuegos artificiales al AGENDAR — celebración a pantalla completa
+   ============================================================ */
+function launchFireworks() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let canvas = document.getElementById('fx-canvas');
+  if (!canvas) {
+    canvas = document.createElement('canvas');
+    canvas.id = 'fx-canvas';
+    canvas.setAttribute('aria-hidden', 'true');
+    Object.assign(canvas.style, {
+      position: 'fixed', inset: '0', width: '100%', height: '100%',
+      pointerEvents: 'none', zIndex: '10050'
+    });
+    document.body.appendChild(canvas);
+  }
+  const ctx = canvas.getContext('2d');
+  const DPR = Math.min(window.devicePixelRatio || 1, 2);
+  const W = window.innerWidth, H = window.innerHeight;
+  canvas.width = W * DPR;
+  canvas.height = H * DPR;
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+
+  // Paleta de la marca (rosa + dorado + destellos)
+  const colors = ['#f2b5a0', '#e8a090', '#c56f5c', '#d4b896', '#c9a15f', '#fce8e0', '#ffffff'];
+  const particles = [];
+
+  function burst(x, y) {
+    const n = 130 + Math.floor(Math.random() * 70); // 130–200 partículas por estallido
+    for (let i = 0; i < n; i++) {
+      const a = Math.random() * Math.PI * 2;
+      const sp = Math.random() * 7 + 2;              // más energía = radio mayor
+      particles.push({
+        x, y,
+        vx: Math.cos(a) * sp,
+        vy: Math.sin(a) * sp,
+        life: 1,
+        color: colors[(Math.random() * colors.length) | 0],
+        size: Math.random() * 2.6 + 1.4
+      });
+    }
+  }
+
+  // Más estallidos y durante más tiempo, repartidos por toda la pantalla
+  const nBursts = 14;
+  const gap = 210;
+  for (let b = 0; b < nBursts; b++) {
+    setTimeout(() => burst(W * (0.12 + Math.random() * 0.76), H * (0.12 + Math.random() * 0.52)), b * gap);
+  }
+  const endAt = performance.now() + nBursts * gap + 900;
+
+  function tick(now) {
+    // Estela: desvanecemos el frame anterior en lugar de borrarlo (fuegos más vivos)
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.fillStyle = 'rgba(0,0,0,0.15)';
+    ctx.fillRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'source-over';
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.vy += 0.05;        // gravedad
+      p.vx *= 0.987;
+      p.vy *= 0.987;
+      p.x += p.vx;
+      p.y += p.vy;
+      p.life -= 0.008;     // viven más (estallido más largo)
+      if (p.life <= 0) { particles.splice(i, 1); continue; }
+      ctx.globalAlpha = Math.max(0, p.life);
+      ctx.fillStyle = p.color;
+      ctx.shadowColor = p.color;
+      ctx.shadowBlur = 6;  // brillo
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.shadowBlur = 0;
+    ctx.globalAlpha = 1;
+
+    if (particles.length > 0 || now < endAt) {
+      canvas._raf = requestAnimationFrame(tick);
+    } else {
+      ctx.clearRect(0, 0, W, H);
+    }
+  }
+  cancelAnimationFrame(canvas._raf);
+  canvas._raf = requestAnimationFrame(tick);
+}
+
+/* Disparadores: botones/enlaces de "Agendar" y envío del formulario */
+(function bindFireworks() {
+  const triggers = new Set(document.querySelectorAll('.btn-samp'));
+  document.querySelectorAll('.btn, .nav-cta').forEach((el) => {
+    if ((el.getAttribute('type') || '') === 'submit') return; // el submit lo dispara el evento del formulario
+    if (/agendar|whatsapp|enviar/i.test(el.textContent || '')) triggers.add(el);
+  });
+  triggers.forEach((el) => el.addEventListener('click', launchFireworks));
+  document.getElementById('contacto-form')?.addEventListener('submit', launchFireworks);
+})();
+
+/* ============================================================
    ✦ CAPA DINÁMICA — GSAP + Lenis (experiencia premium)
    Funciona igual en escritorio y en teléfonos.
    ============================================================ */
@@ -449,27 +551,11 @@ document.querySelectorAll('.btn-samp[data-wa]').forEach(btn => {
       scrollTrigger: { trigger: '#sobre-mi', start: 'top bottom', end: 'bottom top', scrub: true }
     });
 
-    /* --- Galería horizontal de "Servicios especializados" --- */
-    const servSection = document.querySelector('#servicios');
-    const grid = servSection ? servSection.querySelector('.servicios-grid') : null;
-    if (servSection && grid) {
-      grid.classList.add('is-horizontal');
-      const distance = () => Math.max(0, grid.scrollWidth - grid.clientWidth);
-      const tween = gsap.to(grid, {
-        x: () => -distance(),
-        ease: 'none',
-        scrollTrigger: {
-          trigger: servSection,
-          start: 'top top',
-          end: () => '+=' + distance(),
-          pin: true,
-          scrub: 1,
-          invalidateOnRefresh: true,
-          anticipatePin: 1
-        }
-      });
-      return () => { grid.classList.remove('is-horizontal'); gsap.set(grid, { x: 0 }); tween.scrollTrigger?.kill(); tween.kill(); };
-    }
+    /* --- Galería horizontal de servicios: RETIRADA ---
+       El track usaba width:max-content, por lo que (scrollWidth - clientWidth)
+       daba 0 y las tarjetas se salían de pantalla sin poder desplazarse.
+       Ahora los servicios se muestran como rejilla normal (3→2→1), más robusto
+       y accesible. */
   });
 
   /* ====================================================
@@ -587,17 +673,27 @@ document.querySelectorAll('.btn-samp[data-wa]').forEach(btn => {
       glare.className = 'tilt-glare';
       card.appendChild(glare);
       const MAX = 7;
+      // Al ENTRAR: elevar de inmediato para que TODAS reaccionen igual,
+      // sin depender de que el ratón se mueva.
+      card.addEventListener('mouseenter', () => {
+        card.style.transition = 'transform 0.25s var(--ease-out), box-shadow 0.35s ease';
+        card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(-8px)';
+      });
       card.addEventListener('mousemove', (e) => {
         const r = card.getBoundingClientRect();
         const px = (e.clientX - r.left) / r.width;
         const py = (e.clientY - r.top) / r.height;
         const rxx = (py - 0.5) * -2 * MAX;
         const ryy = (px - 0.5) *  2 * MAX;
-        card.style.transform = `perspective(800px) rotateX(${rxx}deg) rotateY(${ryy}deg) translateY(-6px)`;
+        card.style.transition = 'transform 0.08s linear, box-shadow 0.35s ease';
+        card.style.transform = `perspective(800px) rotateX(${rxx}deg) rotateY(${ryy}deg) translateY(-8px)`;
         glare.style.setProperty('--gx', px * 100 + '%');
         glare.style.setProperty('--gy', py * 100 + '%');
       });
-      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+      card.addEventListener('mouseleave', () => {
+        card.style.transition = 'transform 0.45s var(--ease-out), box-shadow 0.45s ease';
+        card.style.transform = '';
+      });
     });
   }
 
