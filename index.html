@@ -7,8 +7,35 @@
   <meta name="keywords" content="dermocosmética, cosmetóloga, higiene facial, hidratación facial, microdermoabrasión, dermapen, cuidado de piel, Yennifer Torres" />
   <title>Cabina Dermocosmética YT — Por Yennifer Torres</title>
 
-  <!-- Favicon -->
+  <!-- Favicon / iconos -->
   <link rel="icon" type="image/svg+xml" href="./img/logooooo.svg" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <meta name="theme-color" content="#7f6029" />
+  <meta name="author" content="Yennifer Torres" />
+
+  <!-- Canonical (reemplaza TU-DOMINIO por tu dominio real al publicar) -->
+  <link rel="canonical" href="https://TU-DOMINIO/" />
+
+  <!-- Open Graph (vista previa en WhatsApp / Facebook / Instagram) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_CO" />
+  <meta property="og:site_name" content="Cabina Dermocosmética YT" />
+  <meta property="og:title" content="Cabina Dermocosmética YT — Por Yennifer Torres" />
+  <meta property="og:description" content="Tratamientos dermocosméticos personalizados en Barranquilla: higiene facial, hidratación, microdermoabrasión, dermapen y más. Agenda por WhatsApp." />
+  <meta property="og:url" content="https://TU-DOMINIO/" />
+  <meta property="og:image" content="https://TU-DOMINIO/img/og-cover.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Tratamiento facial profesional en Cabina Dermocosmética YT" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Cabina Dermocosmética YT — Por Yennifer Torres" />
+  <meta name="twitter:description" content="Tratamientos dermocosméticos personalizados en Barranquilla. Agenda tu cita por WhatsApp." />
+  <meta name="twitter:image" content="https://TU-DOMINIO/img/og-cover.jpg" />
+
+  <!-- Precarga de la imagen principal (mejora el LCP) -->
+  <link rel="preload" as="image" href="img/img20.jpg" fetchpriority="high" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,9 +46,41 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="styles.css?v=4" />
+  <link rel="stylesheet" href="styles.css?v=5" />
+
+  <!-- Datos estructurados: negocio local (SEO en Google) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BeautySalon",
+    "name": "Cabina Dermocosmética YT",
+    "description": "Cosmetología profesional en Barranquilla: higiene facial, hidratación, microdermoabrasión, dermapen, anti-manchas y más.",
+    "image": "https://TU-DOMINIO/img/og-cover.jpg",
+    "url": "https://TU-DOMINIO/",
+    "telephone": "+573017270612",
+    "priceRange": "$$",
+    "founder": "Yennifer Torres",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Carrera 44 #80-223",
+      "addressLocality": "Barranquilla",
+      "addressRegion": "Atlántico",
+      "addressCountry": "CO"
+    },
+    "openingHoursSpecification": [{
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+      "opens": "08:00",
+      "closes": "18:00"
+    }],
+    "sameAs": ["https://www.instagram.com/cabinadermocosmeticayt"]
+  }
+  </script>
 </head>
 <body>
+
+  <!-- Saltar al contenido (accesibilidad por teclado) -->
+  <a href="#inicio" class="skip-link">Saltar al contenido</a>
 
   <!-- ==================== PRELOADER ==================== -->
   <div id="preloader" aria-hidden="true">
@@ -109,7 +168,7 @@
       </div>
 
       <div class="hero-right">
-        <img src="img/img20.jpg" alt="Tratamiento facial profesional" loading="eager" />
+        <img src="img/img20.jpg" alt="Tratamiento facial profesional" width="900" height="1600" loading="eager" fetchpriority="high" />
         <div class="hero-overlay"></div>
         <div class="hero-scroll">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -958,9 +1017,6 @@
             <a href="https://wa.me/573017270612" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp">
               <i class="fab fa-whatsapp"></i>
             </a>
-            <a href="https://www.tiktok.com/@cabinadermocosmeticayt" target="_blank" rel="noopener" class="social-link" aria-label="TikTok">
-              <i class="fab fa-tiktok"></i>
-            </a>
           </div>
         </div>
 
@@ -970,11 +1026,13 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required />
+                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" autocomplete="name" required />
+                <span class="form-error" data-error-for="nombre"></span>
               </div>
               <div class="form-group">
                 <label for="telefono">Teléfono</label>
-                <input type="tel" id="telefono" name="telefono" placeholder="Tu número" required />
+                <input type="tel" id="telefono" name="telefono" placeholder="Ej: 300 123 4567" autocomplete="tel" inputmode="tel" required />
+                <span class="form-error" data-error-for="telefono"></span>
               </div>
             </div>
 
@@ -989,6 +1047,7 @@
                 <option value="Tratamiento Anti-manchas">Tratamiento Anti-manchas</option>
                 <option value="Tratamiento Personalizado">Tratamiento Personalizado</option>
               </select>
+              <span class="form-error" data-error-for="servicio"></span>
             </div>
 
             <div class="form-group">
@@ -996,9 +1055,17 @@
               <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos sobre tu piel o cualquier inquietud..."></textarea>
             </div>
 
+            <label class="form-consent">
+              <input type="checkbox" id="consent" name="consent" required />
+              <span>Acepto la <a href="privacidad.html" target="_blank" rel="noopener">política de tratamiento de datos</a> para que me contacten.</span>
+            </label>
+            <span class="form-error" data-error-for="consent"></span>
+
             <button type="submit" class="btn btn-whatsapp form-submit">
               <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
             </button>
+
+            <p id="form-feedback" class="form-feedback" role="status" aria-live="polite"></p>
           </form>
         </div>
 
@@ -1062,11 +1129,11 @@
   <div class="grain" aria-hidden="true"></div>
 
   <!-- Librerías de animación (GSAP + ScrollTrigger + Lenis) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 
   <!-- JS -->
-  <script src="script.js?v=4"></script>
+  <script defer src="script.js?v=5"></script>
 </body>
 </html>

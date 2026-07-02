@@ -243,19 +243,72 @@ slider?.addEventListener('touchend', e => {
   }
 });
 
-/* ---- Formulario de contacto ---- */
+/* ---- Formulario de contacto (validación + confirmación en pantalla) ---- */
 const form = document.getElementById('contacto-form');
-form?.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const name    = form.querySelector('[name="nombre"]').value.trim();
-  const service = form.querySelector('[name="servicio"]').value;
-  const phone   = form.querySelector('[name="telefono"]').value.trim();
-  const message = form.querySelector('[name="mensaje"]').value.trim();
+if (form) {
+  const feedback  = document.getElementById('form-feedback');
+  const submitBtn = form.querySelector('.form-submit');
 
-  const wa    = `Hola! Me llamo *${name}* y estoy interesada/o en el servicio de *${service}*.\n\nMi teléfono: ${phone}\n\nMensaje: ${message}`;
-  const waURL = `https://wa.me/573017270612?text=${encodeURIComponent(wa)}`;
-  window.open(waURL, '_blank');
-});
+  // Marca/limpia el error de un campo y devuelve true si es válido
+  const setError = (name, msg) => {
+    const field = form.querySelector(`[name="${name}"]`);
+    const errEl = form.querySelector(`.form-error[data-error-for="${name}"]`);
+    if (field) {
+      field.classList.toggle('is-invalid', !!msg);
+      field.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    }
+    if (errEl) errEl.textContent = msg || '';
+    return !msg;
+  };
+
+  // Al corregir un campo, se limpia su error
+  form.querySelectorAll('[name="nombre"], [name="telefono"], [name="servicio"], [name="consent"]').forEach((el) => {
+    const clear = () => setError(el.name, '');
+    el.addEventListener('input', clear);
+    el.addEventListener('change', clear);
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name    = form.querySelector('[name="nombre"]').value.trim();
+    const phone   = form.querySelector('[name="telefono"]').value.trim();
+    const service = form.querySelector('[name="servicio"]').value;
+    const message = form.querySelector('[name="mensaje"]').value.trim();
+    const consent = form.querySelector('[name="consent"]').checked;
+
+    // Validación
+    let ok = true;
+    ok = setError('nombre', name.length < 2 ? 'Escribe tu nombre.' : '') && ok;
+    const phoneOk = /[0-9]{7,}/.test(phone.replace(/[\s()+-]/g, ''));
+    ok = setError('telefono', !phoneOk ? 'Escribe un teléfono válido.' : '') && ok;
+    ok = setError('servicio', !service ? 'Elige un servicio.' : '') && ok;
+    ok = setError('consent', !consent ? 'Debes aceptar la política de datos.' : '') && ok;
+
+    if (!ok) {
+      if (feedback) {
+        feedback.textContent = 'Revisa los campos marcados para continuar.';
+        feedback.className = 'form-feedback is-error show';
+      }
+      form.querySelector('.is-invalid')?.focus();
+      return;
+    }
+
+    // Éxito: confirmación en pantalla + fuegos + WhatsApp
+    if (feedback) {
+      feedback.textContent = '¡Gracias! Te redirigimos a WhatsApp para confirmar tu cita…';
+      feedback.className = 'form-feedback is-success show';
+    }
+    if (submitBtn) submitBtn.disabled = true;
+
+    const wa    = `Hola! Me llamo *${name}* y estoy interesada/o en el servicio de *${service}*.\n\nMi teléfono: ${phone}` + (message ? `\n\nMensaje: ${message}` : '');
+    const waURL = `https://wa.me/573017270612?text=${encodeURIComponent(wa)}`;
+    launchFireworks();
+    setTimeout(() => {
+      window.open(waURL, '_blank');
+      if (submitBtn) submitBtn.disabled = false;
+    }, 800);
+  });
+}
 
 /* ---- Año dinámico en footer ---- */
 const yearEl = document.getElementById('footer-year');
@@ -394,7 +447,7 @@ function launchFireworks() {
     if (/agendar|whatsapp|enviar/i.test(el.textContent || '')) triggers.add(el);
   });
   triggers.forEach((el) => el.addEventListener('click', launchFireworks));
-  document.getElementById('contacto-form')?.addEventListener('submit', launchFireworks);
+  // El formulario dispara los fuegos desde su propio handler, solo si es válido.
 })();
 
 /* ============================================================

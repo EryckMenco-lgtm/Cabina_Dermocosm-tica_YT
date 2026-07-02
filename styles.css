@@ -1,5 +1,6 @@
-/* ---------- Google Fonts ---------- */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
+/* ---------- Google Fonts ----------
+   Las fuentes se cargan con <link rel="preconnect"> + <link> en el <head>.
+   Se eliminó el @import (duplicado y bloqueaba el render). */
 
 /* ---------- Variables ---------- */
 :root {
@@ -84,6 +85,28 @@ ul { list-style: none; }
   outline: 2px solid var(--oro-texto);
   outline-offset: 3px;
   border-radius: 3px;
+}
+
+/* Saltar al contenido: oculto hasta enfocar con teclado (accesibilidad) */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 1rem;
+  z-index: 10060;
+  background: var(--oro-texto);
+  color: var(--blanco);
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 12px 12px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  box-shadow: var(--shadow-md);
+  transition: top 0.3s var(--ease-out);
+}
+.skip-link:focus {
+  top: 0;
+  outline: none;
 }
 
 /* ---------- Utility ---------- */
@@ -1172,6 +1195,71 @@ footer[id] { scroll-margin-top: 88px; }
   justify-content: center;
   margin-top: 0.5rem;
 }
+.form-submit:disabled { opacity: 0.7; cursor: default; transform: none; }
+
+/* Mensajes de error por campo (aparecen con transición) */
+.form-error {
+  display: block;
+  min-height: 0.9em;
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #c0392b;
+  opacity: 0;
+  transform: translateY(-3px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.form-error:not(:empty) { opacity: 1; transform: none; }
+
+.form-group input.is-invalid,
+.form-group select.is-invalid,
+.form-group textarea.is-invalid {
+  border-color: #c0392b;
+  background: #fdf3f2;
+}
+
+/* Casilla de consentimiento (Habeas Data) */
+.form-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin: 0.25rem 0 0.35rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--texto-claro);
+  cursor: pointer;
+}
+.form-consent input {
+  margin-top: 0.15rem;
+  width: 18px; height: 18px;
+  accent-color: var(--oro-texto);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.form-consent a { color: var(--oro-texto); text-decoration: underline; }
+
+/* Mensaje de confirmación / error del formulario (se despliega con transición) */
+.form-feedback {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  border-radius: var(--radio);
+  opacity: 0;
+  max-height: 0;
+  padding: 0 1.1rem;
+  overflow: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out),
+              max-height 0.35s var(--ease-out), padding 0.35s var(--ease-out);
+}
+.form-feedback.show {
+  opacity: 1;
+  transform: none;
+  max-height: 140px;
+  padding: 0.85rem 1.1rem;
+}
+.form-feedback.is-success { background: #e8f5ec; color: #1e7a44; border: 1px solid #bfe3cc; }
+.form-feedback.is-error   { background: #fdecea; color: #c0392b; border: 1px solid #f5c6c0; }
 
 /* ---------- Footer ---------- */
 #footer {
