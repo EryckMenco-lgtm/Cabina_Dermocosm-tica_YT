@@ -141,34 +141,6 @@ const statsObserver = new IntersectionObserver((entries) => {
 const statsSection = document.getElementById('stats');
 if (statsSection) statsObserver.observe(statsSection);
 
-/* ---- Filtros de portafolio ---- */
-const filterBtns = document.querySelectorAll('.filter-btn');
-const portoItems = document.querySelectorAll('.porto-item');
-
-filterBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    filterBtns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    const cat = btn.dataset.filter;
-    portoItems.forEach(item => {
-      const show = cat === 'all' || item.dataset.category === cat;
-      item.style.transition = 'opacity 0.35s, transform 0.35s';
-      if (show) {
-        item.style.opacity = '1';
-        item.style.transform = 'scale(1)';
-        item.style.display = '';
-      } else {
-        item.style.opacity = '0';
-        item.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-          if (item.style.opacity === '0') item.style.display = 'none';
-        }, 350);
-      }
-    });
-  });
-});
-
 /* ---- Lightbox ---- */
 const lightbox      = document.getElementById('lightbox');
 const lightboxImg   = lightbox?.querySelector('img');
@@ -262,7 +234,7 @@ if (form) {
   };
 
   // Al corregir un campo, se limpia su error
-  form.querySelectorAll('[name="nombre"], [name="telefono"], [name="servicio"], [name="consent"]').forEach((el) => {
+  form.querySelectorAll('[name="nombre"], [name="servicio"], [name="consent"]').forEach((el) => {
     const clear = () => setError(el.name, '');
     el.addEventListener('input', clear);
     el.addEventListener('change', clear);
@@ -271,16 +243,12 @@ if (form) {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const name    = form.querySelector('[name="nombre"]').value.trim();
-    const phone   = form.querySelector('[name="telefono"]').value.trim();
     const service = form.querySelector('[name="servicio"]').value;
-    const message = form.querySelector('[name="mensaje"]').value.trim();
     const consent = form.querySelector('[name="consent"]').checked;
 
     // Validación
     let ok = true;
     ok = setError('nombre', name.length < 2 ? 'Escribe tu nombre.' : '') && ok;
-    const phoneOk = /[0-9]{7,}/.test(phone.replace(/[\s()+-]/g, ''));
-    ok = setError('telefono', !phoneOk ? 'Escribe un teléfono válido.' : '') && ok;
     ok = setError('servicio', !service ? 'Elige un servicio.' : '') && ok;
     ok = setError('consent', !consent ? 'Debes aceptar la política de datos.' : '') && ok;
 
@@ -300,13 +268,13 @@ if (form) {
     }
     if (submitBtn) submitBtn.disabled = true;
 
-    const wa    = `Hola! Me llamo *${name}* y estoy interesada/o en el servicio de *${service}*.\n\nMi teléfono: ${phone}` + (message ? `\n\nMensaje: ${message}` : '');
+    const wa    = `Hola! Me llamo *${name}* y estoy interesada/o en el servicio de *${service}*. ¿Podemos agendar una cita?`;
     const waURL = `https://wa.me/573017270612?text=${encodeURIComponent(wa)}`;
     launchFireworks();
     setTimeout(() => {
       window.open(waURL, '_blank');
       if (submitBtn) submitBtn.disabled = false;
-    }, 800);
+    }, 400);
   });
 }
 
@@ -379,7 +347,7 @@ function launchFireworks() {
   const particles = [];
 
   function burst(x, y) {
-    const n = 130 + Math.floor(Math.random() * 70); // 130–200 partículas por estallido
+    const n = 80 + Math.floor(Math.random() * 40); // 80–120 partículas por estallido
     for (let i = 0; i < n; i++) {
       const a = Math.random() * Math.PI * 2;
       const sp = Math.random() * 7 + 2;              // más energía = radio mayor
@@ -394,13 +362,13 @@ function launchFireworks() {
     }
   }
 
-  // Más estallidos y durante más tiempo, repartidos por toda la pantalla
-  const nBursts = 14;
-  const gap = 210;
+  // Celebración breve (~2s): festeja sin retrasar el camino a WhatsApp
+  const nBursts = 6;
+  const gap = 150;
   for (let b = 0; b < nBursts; b++) {
     setTimeout(() => burst(W * (0.12 + Math.random() * 0.76), H * (0.12 + Math.random() * 0.52)), b * gap);
   }
-  const endAt = performance.now() + nBursts * gap + 900;
+  const endAt = performance.now() + nBursts * gap + 500;
 
   function tick(now) {
     // Estela: desvanecemos el frame anterior en lugar de borrarlo (fuegos más vivos)
@@ -416,7 +384,7 @@ function launchFireworks() {
       p.vy *= 0.987;
       p.x += p.vx;
       p.y += p.vy;
-      p.life -= 0.008;     // viven más (estallido más largo)
+      p.life -= 0.015;     // vida corta: la celebración no estorba
       if (p.life <= 0) { particles.splice(i, 1); continue; }
       ctx.globalAlpha = Math.max(0, p.life);
       ctx.fillStyle = p.color;
@@ -460,6 +428,11 @@ function launchFireworks() {
   const hasGSAP     = typeof window.gsap  !== 'undefined';
   const hasLenis    = typeof window.Lenis !== 'undefined';
   const preloader   = document.getElementById('preloader');
+
+  /* Preloader solo la primera vez por sesión: en recargas se entra directo
+     (el <head> añade .no-preloader al <html> y el CSS lo oculta al instante) */
+  const skipPreloader = document.documentElement.classList.contains('no-preloader');
+  try { sessionStorage.setItem('yt-preloader', '1'); } catch (e) {}
 
   document.body.classList.add('is-loading');
 
@@ -559,11 +532,22 @@ function launchFireworks() {
   function start() {
     if (started) return;
     started = true;
+
+    // Ya se vio el preloader en esta sesión: entrar directo al contenido
+    if (skipPreloader) {
+      if (preloader) preloader.remove();
+      document.body.classList.remove('is-loading');
+      if (lenis) lenis.start();
+      ScrollTrigger.refresh();
+      playHeroIntro();
+      return;
+    }
+
     const tl = gsap.timeline();
-    tl.to('.preloader-bar span', { width: '100%', duration: 1.0, ease: 'power1.inOut' })
-      .to('.preloader-inner', { y: -18, opacity: 0, duration: 0.45, ease: 'power2.in' }, '+=0.05')
+    tl.to('.preloader-bar span', { width: '100%', duration: 0.5, ease: 'power1.inOut' })
+      .to('.preloader-inner', { y: -18, opacity: 0, duration: 0.4, ease: 'power2.in' }, '+=0.05')
       .to('#preloader', {
-        yPercent: -100, duration: 0.8, ease: 'power3.inOut',
+        yPercent: -100, duration: 0.6, ease: 'power3.inOut',
         onComplete: () => {
           if (preloader) preloader.remove();
           document.body.classList.remove('is-loading');
@@ -573,7 +557,7 @@ function launchFireworks() {
       }, '-=0.1')
       .add(playHeroIntro(), '-=0.35');
   }
-  if (document.readyState === 'complete') start();
+  if (skipPreloader || document.readyState === 'complete') start();
   else window.addEventListener('load', start);
   setTimeout(start, 3000); // red de seguridad
 
@@ -701,7 +685,7 @@ function launchFireworks() {
       rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
       if (ring) ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
     });
-    document.querySelectorAll('a, button, .porto-item, .btn, .ba-handle, .filter-btn, .samp-tab')
+    document.querySelectorAll('a, button, .porto-item, .btn, .ba-handle, .samp-tab')
       .forEach((el) => {
         el.addEventListener('mouseenter', () => ring && ring.classList.add('is-hover'));
         el.addEventListener('mouseleave', () => ring && ring.classList.remove('is-hover'));
@@ -720,7 +704,7 @@ function launchFireworks() {
     });
 
     /* --- Tilt 3D + glare en tarjetas --- */
-    document.querySelectorAll('.servicio-card, .samp-card').forEach((card) => {
+    document.querySelectorAll('.samp-card').forEach((card) => {
       card.classList.add('tilt');
       const glare = document.createElement('span');
       glare.className = 'tilt-glare';

@@ -46,7 +46,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="styles.css?v=5" />
+  <link rel="stylesheet" href="styles.css?v=6" />
+
+  <!-- Preloader solo en la primera visita de la sesión (evita el re-arranque en cada recarga) -->
+  <script>
+    try { if (sessionStorage.getItem('yt-preloader')) document.documentElement.classList.add('no-preloader'); } catch (e) {}
+  </script>
 
   <!-- Datos estructurados: negocio local (SEO en Google) -->
   <script type="application/ld+json">
@@ -150,11 +155,11 @@
         </p>
 
         <div class="hero-actions">
-          <a href="#servicios" class="btn btn-primary">
-            <i class="fas fa-spa"></i> Ver servicios
+          <a href="https://wa.me/573017270612?text=Hola%2C+quiero+agendar+una+cita" target="_blank" rel="noopener" class="btn btn-primary">
+            <i class="fab fa-whatsapp"></i> Agendar por WhatsApp
           </a>
-          <a href="#portafolio" class="btn btn-outline">
-            Ver resultados
+          <a href="#servicios" class="btn btn-outline">
+            Ver servicios
           </a>
         </div>
 
@@ -245,98 +250,82 @@
     </div>
   </section>
 
-  <!-- ==================== SERVICIOS ==================== -->
-  <section id="servicios">
+  <!-- ==================== TESTIMONIOS ==================== -->
+  <section id="testimonios">
     <div class="container">
-      <div class="servicios-header">
-        <span class="section-label">Nuestros tratamientos</span>
-        <h2 class="section-title">Servicios <em>especializados</em></h2>
-        <p>Procedimientos dermocosméticos diseñados para transformar y revitalizar tu piel con los mejores resultados.</p>
+      <div class="testimonios-header fade-up">
+        <span class="section-label">Lo que dicen</span>
+        <h2 class="section-title">Clientas <em>felices</em></h2>
       </div>
 
-      <div class="servicios-grid">
+      <div class="testimonios-track">
+        <div class="testimonios-slider">
 
-        <div class="servicio-card fade-up">
-          <div class="servicio-img">
-            <img src="./img/Higiene facial.jpg" alt="Higiene Facial" />
+          <div class="testim-card">
+            <div class="testim-stars">★★★★★</div>
+            <blockquote>"Increíble experiencia. Mi piel quedó luminosa y suave después de la higiene facial. Yennifer es super profesional y el ambiente es muy relajante."</blockquote>
+            <div class="testim-author">
+              <div class="testim-avatar">L</div>
+              <div class="testim-info">
+                <strong>Laura M.</strong>
+                <span>Higiene Facial</span>
+              </div>
+            </div>
           </div>
-          <div class="servicio-body">
-            <div class="servicio-icon">🌸</div>
-            <h3>Higiene Facial</h3>
-            <p>Limpieza profunda del rostro que elimina impurezas, puntos negros y exceso de sebo. Devuelve la luminosidad natural a tu piel.</p>
-            <span class="servicio-tag">Tratamiento estrella</span>
+
+          <div class="testim-card">
+            <div class="testim-stars">★★★★★</div>
+            <blockquote>"Llevaba tiempo con manchas en el rostro y después del tratamiento anti-manchas los resultados son increíbles. 100% recomendada."</blockquote>
+            <div class="testim-author">
+              <div class="testim-avatar">S</div>
+              <div class="testim-info">
+                <strong>Sofía R.</strong>
+                <span>Tratamiento Anti-manchas</span>
+              </div>
+            </div>
           </div>
+
+          <div class="testim-card">
+            <div class="testim-stars">★★★★★</div>
+            <blockquote>"El dermapen fue transformador. Las cicatrices de acné que me habían acomplejado años están casi imperceptibles. Gracias Yennifer!"</blockquote>
+            <div class="testim-author">
+              <div class="testim-avatar">V</div>
+              <div class="testim-info">
+                <strong>Valentina C.</strong>
+                <span>Dermapen</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="testim-card">
+            <div class="testim-stars">★★★★★</div>
+            <blockquote>"Me encanta venir aquí, siempre salgo con la piel radiante. La microdermoabrasión ha mejorado muchísimo la textura de mi piel."</blockquote>
+            <div class="testim-author">
+              <div class="testim-avatar">A</div>
+              <div class="testim-info">
+                <strong>Andrea P.</strong>
+                <span>Microdermoabrasión</span>
+              </div>
+            </div>
+          </div>
+
         </div>
+      </div>
 
-        <div class="servicio-card fade-up">
-          <div class="servicio-img">
-            <img src="./img/img10.jpg" alt="Hidratación Facial" />
-          </div>
-          <div class="servicio-body">
-            <div class="servicio-icon">💧</div>
-            <h3>Hidratación Facial</h3>
-            <p>Tratamiento intensivo que restaura los niveles óptimos de hidratación en tu piel, dejándola suave, firme y radiante.</p>
-            <span class="servicio-tag">Muy solicitado</span>
-          </div>
-        </div>
-
-        <div class="servicio-card fade-up">
-          <div class="servicio-img">
-            <img src="./img/img22.jpg" alt="Microdermoabrasión" />
-          </div>
-          <div class="servicio-body">
-            <div class="servicio-icon">💎</div>
-            <h3>Microdermoabrasión</h3>
-            <p>Exfoliación mecánica que elimina las células muertas, mejora la textura, atenúa manchas y cicatrices, renovando completamente tu piel.</p>
-            <span class="servicio-tag">Alta tecnología</span>
-          </div>
-        </div>
-
-        <div class="servicio-card fade-up">
-          <div class="servicio-img">
-            <img src="./img/Dermapen.png" alt="Dermapen" />
-          </div>
-          <div class="servicio-body">
-            <div class="servicio-icon">🔬</div>
-            <h3>Dermapen</h3>
-            <p>Microagujas que estimulan la producción natural de colágeno y elastina. Ideal para tratar cicatrices, líneas de expresión y poros dilatados.</p>
-            <span class="servicio-tag">Rejuvenecimiento</span>
-          </div>
-        </div>
-
-        <div class="servicio-card fade-up">
-          <div class="servicio-img">
-            <img src="./img/img15.jpg" alt="Tratamiento Anti-manchas" />
-          </div>
-          <div class="servicio-body">
-            <div class="servicio-icon">🌟</div>
-            <h3>Tratamiento Anti-manchas</h3>
-            <p>Protocolo específico para reducir y eliminar la hiperpigmentación, manchas solares y melasma, unificando el tono de tu piel.</p>
-            <span class="servicio-tag">Resultados visibles</span>
-          </div>
-        </div>
-
-        <div class="servicio-card fade-up">
-          <div class="servicio-img">
-            <img src="./img/img08.jpg" alt="Cuidado Especializado" />
-          </div>
-          <div class="servicio-body">
-            <div class="servicio-icon">🌺</div>
-            <h3>Tratamiento Personalizado</h3>
-            <p>Protocolo diseñado exclusivamente para tus necesidades. Diagnóstico de piel y plan de tratamiento adaptado a tu tipo de piel.</p>
-            <span class="servicio-tag">Exclusivo</span>
-          </div>
-        </div>
-
+      <div class="testim-nav">
+        <button class="testim-dot active" aria-label="Testimonio 1"></button>
+        <button class="testim-dot" aria-label="Testimonio 2"></button>
+        <button class="testim-dot" aria-label="Testimonio 3"></button>
+        <button class="testim-dot" aria-label="Testimonio 4"></button>
       </div>
     </div>
   </section>
 
-  <!-- ==================== SERVICIOS AMPLIADOS ==================== -->
-  <section id="servicios-ampliados">
+  <!-- ==================== SERVICIOS (catálogo completo) ==================== -->
+  <section id="servicios">
     <div class="container">
       <div class="servicios-amp-header">
-        <span class="section-label">Catálogo completo</span>
+        <span class="section-label">Nuestros tratamientos</span>
         <h2 class="section-title">Todos nuestros <em>tratamientos</em></h2>
         <p>Servicios personalizados con aparatología avanzada incluida sin costo adicional, seleccionada según las necesidades de cada paciente.</p>
       </div>
@@ -701,155 +690,6 @@
     </div>
   </section>
 
-  <!-- ==================== MARQUEE ==================== -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>Higiene Facial <em>✦</em> Hidratación <em>✦</em> Dermapen <em>✦</em> Microdermoabrasión <em>✦</em> Anti-manchas <em>✦</em> Peeling <em>✦</em> Hidra Lips <em>✦</em> Dermaplaning <em>✦</em> </span>
-      <span>Higiene Facial <em>✦</em> Hidratación <em>✦</em> Dermapen <em>✦</em> Microdermoabrasión <em>✦</em> Anti-manchas <em>✦</em> Peeling <em>✦</em> Hidra Lips <em>✦</em> Dermaplaning <em>✦</em> </span>
-    </div>
-  </div>
-
-  <!-- ==================== PORTAFOLIO ==================== -->
-  <section id="portafolio">
-    <div class="container">
-      <div class="portafolio-header">
-        <div>
-          <span class="section-label">Resultados reales</span>
-          <h2 class="section-title">Nuestro <em>portafolio</em></h2>
-        </div>
-        <a href="https://www.instagram.com/cabinadermocosmeticayt" target="_blank" rel="noopener" class="btn btn-outline">
-          <i class="fab fa-instagram"></i> Ver Instagram
-        </a>
-      </div>
-
-      <div class="portafolio-filters">
-        <button class="filter-btn active" data-filter="all">Todos</button>
-        <button class="filter-btn" data-filter="Experiencia">Experiencia</button>
-        <button class="filter-btn" data-filter="Visitanos">Visitanos</button>
-      </div>
-
-      <div class="portafolio-masonry">
-
-        <div class="porto-item fade-up" data-category="facial" data-src="img/Yeni.webp" data-label="Higiene Facial">
-          <img src="img/Yeni.webp" alt="Higiene Facial" loading="lazy" />
-          <div class="porto-overlay"><span>Su fiel servidora</span></div>
-        </div>
-
-
-        <div class="porto-item fade-up" data-category="hidratacion" data-src="img/No todo puede esperar.webp" data-label="Hidratación">
-          <img src="img/No todo puede esperar.webp" alt="Hidratación Facial" loading="lazy" />
-          <div class="porto-overlay"><span>No todo puede esperar...</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="hidratacion" data-src="img/LimpiezaF.jpg" data-label="Hidratación">
-          <img src="img/LimpiezaF.jpg" alt="Hidratación Facial" loading="lazy" />
-          <div class="porto-overlay"><span>Limpieza Facial</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="ambiente" data-src="img/Cabina.jpg" data-label="Cabina">
-          <img src="img/Cabina.jpg" alt="Ambiente de la cabina" loading="lazy" />
-          <div class="porto-overlay"><span>Nuestra Cabina</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="dermapen" data-src="img/que causa el acne.webp" data-label="Dermapen">
-          <img src="img/que causa el acne.webp" alt="Dermapen" loading="lazy" />
-          <div class="porto-overlay"><span>Que causa el acne</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="facial" data-src="img/cuida tu piel.webp" data-label="Tratamiento Facial">
-          <img src="img/cuida tu piel.webp" alt="Tratamiento Facial" loading="lazy" />
-          <div class="porto-overlay"><span>Cuida tu piel</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="Experiencia" data-src="img/experiencia2.webp" data-label="Experiencia">
-          <img src="img/experiencia2.webp" alt="Experiencia" loading="lazy" />
-          <div class="porto-overlay"><span>Experiencia</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="hidratacion" data-src="img/higiene facial.webp" data-label="Hidratación">
-          <img src="img/higiene facial.webp" alt="Hidratación" loading="lazy" />
-          <div class="porto-overlay"><span>Higiene facial</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="facial" data-src="img/AltaFrecuencia.jpg" data-label="Higiene Facial">
-          <img src="img/AltaFrecuencia.jpg" alt="Higiene Facial" loading="lazy" />
-          <div class="porto-overlay"><span>Alta Frecuencia</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="Experiencia" data-src="img/experiencia3.webp" data-label="Experiencia">
-          <img src="img/experiencia3.webp" alt="Experiencia" loading="lazy" />
-          <div class="porto-overlay"><span>Experiencia</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="ambiente" data-src="img/higiene profunca.webp" data-label="Cabina">
-          <img src="img/higiene profunca.webp" alt="Cabina" loading="lazy" />
-          <div class="porto-overlay"><span>Higiene profunda</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="ambiente" data-src="img/constancia.webp" data-label="Cabina">
-          <img src="img/constancia.webp" alt="Cabina" loading="lazy" />
-          <div class="porto-overlay"><span>Constancia</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="ambiente" data-src="img/higiene profundaa.webp" data-label="Cabina">
-          <img src="img/higiene profundaa.webp" alt="Cabina" loading="lazy" />
-          <div class="porto-overlay"><span>Higiene profunda</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="ambiente" data-src="img/Desmaquillate.webp" data-label="Cabina">
-          <img src="img/Desmaquillate.webp" alt="Cabina" loading="lazy" />
-          <div class="porto-overlay"><span>Desmaquillate</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="Experiencia" data-src="img/Experienciaaaa.webp" data-label="Experiencia">
-          <img src="img/Experienciaaaa.webp" alt="Experiencia" loading="lazy" />
-          <div class="porto-overlay"><span>Experiencia</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="ambiente" data-src="img/Limpiezaaa.webp" data-label="Cabina">
-          <img src="img/Limpiezaaa.webp" alt="Cabina" loading="lazy" />
-          <div class="porto-overlay"><span>Limpieza Facial</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="ambiente" data-src="img/Como el sol afecta tu piel.webp" data-label="Cabina">
-          <img src="img/Como el sol afecta tu piel.webp" alt="Cabina" loading="lazy" />
-          <div class="porto-overlay"><span>Como el sol Afecta tu Piel</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="ambiente" data-src="img/Piel saludable.webp" data-label="Cabina">
-          <img src="img/Piel saludable.webp" alt="Cabina" loading="lazy" />
-          <div class="porto-overlay"><span>Piel Saludable</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="ambiente" data-src="img/Vitaminas.webp" data-label="Cabina">
-          <img src="img/Vitaminas.webp" alt="Cabina" loading="lazy" />
-          <div class="porto-overlay"><span>Vitaminas</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="Visitanos" data-src="img/visitanos.webp" data-label="Cabina">
-          <img src="img/visitanos.webp" alt="Cabina" loading="lazy" />
-          <div class="porto-overlay"><span>Visitanos</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="Experiencia" data-src="img/Experiencia1.webp" data-label="Experiencia">
-          <img src="img/Experiencia1.webp" alt="Experiencia" loading="lazy" />
-          <div class="porto-overlay"><span>Experiencia</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="dermapen" data-src="img/Experiencia1.webp" data-label="Tratamiento">
-          <img src="img/Pieles maduras.jpg" alt="Tratamiento" loading="lazy" />
-          <div class="porto-overlay"><span>Pieles Maduras</span></div>
-        </div>
-
-        <div class="porto-item fade-up" data-category="dermapen" data-src="img/Experiencia1.webp" data-label="Tratamiento">
-          <img src="img/Clienta feliz.jpg" alt="Tratamiento" loading="lazy" />
-          <div class="porto-overlay"><span>Clientas feliz</span></div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
   <!-- ==================== PROCESO ==================== -->
   <section id="proceso">
     <div class="container">
@@ -883,6 +723,40 @@
     </div>
   </section>
 
+  <!-- ==================== PORTAFOLIO ==================== -->
+  <section id="portafolio">
+    <div class="container">
+      <div class="portafolio-header">
+        <div>
+          <span class="section-label">Resultados reales</span>
+          <h2 class="section-title">Nuestro <em>portafolio</em></h2>
+        </div>
+        <a href="https://www.instagram.com/cabinadermocosmeticayt" target="_blank" rel="noopener" class="btn btn-outline">
+          <i class="fab fa-instagram"></i> Ver Instagram
+        </a>
+      </div>
+
+      <div class="portafolio-masonry">
+
+        <div class="porto-item fade-up" data-src="img/Pieles maduras.jpg" data-label="Tratamiento para pieles maduras">
+          <img src="img/Pieles maduras.jpg" alt="Tratamiento para pieles maduras" loading="lazy" />
+          <div class="porto-overlay"><span>Pieles maduras</span></div>
+        </div>
+
+        <div class="porto-item fade-up" data-src="img/Cabina.jpg" data-label="Nuestra cabina">
+          <img src="img/Cabina.jpg" alt="Tratamiento con mascarilla LED en nuestra cabina" loading="lazy" />
+          <div class="porto-overlay"><span>Nuestra cabina</span></div>
+        </div>
+
+        <div class="porto-item fade-up" data-src="img/AltaFrecuencia.jpg" data-label="Alta frecuencia">
+          <img src="img/AltaFrecuencia.jpg" alt="Aplicación de alta frecuencia" loading="lazy" />
+          <div class="porto-overlay"><span>Alta frecuencia</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ==================== CTA BANNER ==================== -->
   <section id="cta-banner">
     <div class="container cta-content">
@@ -894,77 +768,6 @@
           <i class="fab fa-whatsapp"></i> Escribir por WhatsApp
         </a>
         <a href="#servicios" class="btn btn-outline">Ver todos los servicios</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==================== TESTIMONIOS ==================== -->
-  <section id="testimonios">
-    <div class="container">
-      <div class="testimonios-header fade-up">
-        <span class="section-label">Lo que dicen</span>
-        <h2 class="section-title">Clientas <em>felices</em></h2>
-      </div>
-
-      <div class="testimonios-track">
-        <div class="testimonios-slider">
-
-          <div class="testim-card">
-            <div class="testim-stars">★★★★★</div>
-            <blockquote>"Increíble experiencia. Mi piel quedó luminosa y suave después de la higiene facial. Yennifer es super profesional y el ambiente es muy relajante."</blockquote>
-            <div class="testim-author">
-              <div class="testim-avatar">L</div>
-              <div class="testim-info">
-                <strong>Laura M.</strong>
-                <span>Higiene Facial</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="testim-card">
-            <div class="testim-stars">★★★★★</div>
-            <blockquote>"Llevaba tiempo con manchas en el rostro y después del tratamiento anti-manchas los resultados son increíbles. 100% recomendada."</blockquote>
-            <div class="testim-author">
-              <div class="testim-avatar">S</div>
-              <div class="testim-info">
-                <strong>Sofía R.</strong>
-                <span>Tratamiento Anti-manchas</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="testim-card">
-            <div class="testim-stars">★★★★★</div>
-            <blockquote>"El dermapen fue transformador. Las cicatrices de acné que me habían acomplejado años están casi imperceptibles. Gracias Yennifer!"</blockquote>
-            <div class="testim-author">
-              <div class="testim-avatar">V</div>
-              <div class="testim-info">
-                <strong>Valentina C.</strong>
-                <span>Dermapen</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="testim-card">
-            <div class="testim-stars">★★★★★</div>
-            <blockquote>"Me encanta venir aquí, siempre salgo con la piel radiante. La microdermoabrasión ha mejorado muchísimo la textura de mi piel."</blockquote>
-            <div class="testim-author">
-              <div class="testim-avatar">A</div>
-              <div class="testim-info">
-                <strong>Andrea P.</strong>
-                <span>Microdermoabrasión</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="testim-nav">
-        <button class="testim-dot active" aria-label="Testimonio 1"></button>
-        <button class="testim-dot" aria-label="Testimonio 2"></button>
-        <button class="testim-dot" aria-label="Testimonio 3"></button>
-        <button class="testim-dot" aria-label="Testimonio 4"></button>
       </div>
     </div>
   </section>
@@ -981,28 +784,28 @@
 
           <div class="contacto-items">
             <div class="contacto-item">
-              <div class="contacto-item-icon">📱</div>
+              <div class="contacto-item-icon"><i class="fab fa-whatsapp"></i></div>
               <div class="contacto-item-text">
                 <strong>WhatsApp</strong>
                 <span>+57 301 727 0612</span>
               </div>
             </div>
             <div class="contacto-item">
-              <div class="contacto-item-icon">📍</div>
+              <div class="contacto-item-icon"><i class="fas fa-location-dot"></i></div>
               <div class="contacto-item-text">
                 <strong>Ubicación</strong>
-                <span>Carrera44 #80-223, Barranquilla</span>
+                <span>Carrera 44 #80-223, Barranquilla</span>
               </div>
             </div>
             <div class="contacto-item">
-              <div class="contacto-item-icon">🕐</div>
+              <div class="contacto-item-icon"><i class="far fa-clock"></i></div>
               <div class="contacto-item-text">
                 <strong>Horario</strong>
                 <span>Lunes a Sábado · 8:00 am – 6:00 pm</span>
               </div>
             </div>
             <div class="contacto-item">
-              <div class="contacto-item-icon">📸</div>
+              <div class="contacto-item-icon"><i class="fab fa-instagram"></i></div>
               <div class="contacto-item-text">
                 <strong>Instagram</strong>
                 <span>@cabinadermocosmeticayt</span>
@@ -1023,36 +826,31 @@
         <div class="contacto-form fade-up">
           <h3>Solicita tu cita</h3>
           <form id="contacto-form" novalidate>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" autocomplete="name" required />
-                <span class="form-error" data-error-for="nombre"></span>
-              </div>
-              <div class="form-group">
-                <label for="telefono">Teléfono</label>
-                <input type="tel" id="telefono" name="telefono" placeholder="Ej: 300 123 4567" autocomplete="tel" inputmode="tel" required />
-                <span class="form-error" data-error-for="telefono"></span>
-              </div>
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" autocomplete="name" required />
+              <span class="form-error" data-error-for="nombre"></span>
             </div>
 
             <div class="form-group">
               <label for="servicio">Servicio de interés</label>
               <select id="servicio" name="servicio" required>
                 <option value="" disabled selected>Selecciona un tratamiento</option>
-                <option value="Higiene Facial">Higiene Facial</option>
-                <option value="Hidratación Facial">Hidratación Facial</option>
-                <option value="Microdermoabrasión">Microdermoabrasión</option>
-                <option value="Dermapen">Dermapen</option>
-                <option value="Tratamiento Anti-manchas">Tratamiento Anti-manchas</option>
-                <option value="Tratamiento Personalizado">Tratamiento Personalizado</option>
+                <option value="Facial Integral">Facial Integral</option>
+                <option value="Higiene + Hidratación">Higiene + Hidratación</option>
+                <option value="Dermofacial">Dermofacial</option>
+                <option value="Tratamiento Peeling">Tratamiento Peeling</option>
+                <option value="Dermaplanig">Dermaplanig</option>
+                <option value="Casmara">Casmara</option>
+                <option value="Higiene en Espalda">Higiene en Espalda</option>
+                <option value="Depilación con cera">Depilación con cera</option>
+                <option value="Diseño de Cejas">Diseño de Cejas</option>
+                <option value="Hidra Lips">Hidra Lips</option>
+                <option value="Revitaliza Capilar">Revitaliza Capilar</option>
+                <option value="Pestañas Punto a Punto">Pestañas Punto a Punto</option>
+                <option value="Aún no lo sé, quiero asesoría">Aún no lo sé, quiero asesoría</option>
               </select>
               <span class="form-error" data-error-for="servicio"></span>
-            </div>
-
-            <div class="form-group">
-              <label for="mensaje">Mensaje (opcional)</label>
-              <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos sobre tu piel o cualquier inquietud..."></textarea>
             </div>
 
             <label class="form-consent">
@@ -1134,6 +932,6 @@
   <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 
   <!-- JS -->
-  <script defer src="script.js?v=5"></script>
+  <script defer src="script.js?v=6"></script>
 </body>
 </html>
