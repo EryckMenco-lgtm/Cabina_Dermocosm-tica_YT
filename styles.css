@@ -2062,12 +2062,15 @@ body.has-cursor * { cursor: none !important; }
 
 .hero-sparkles i {
   position: absolute;
-  width: 3px; height: 3px;
+  width: 5px; height: 5px;
   border-radius: 50%;
   background: #fff;
-  box-shadow: 0 0 6px 1px rgba(255,236,200,0.7);
+  /* Doble halo: núcleo blanco + resplandor dorado cálido, bien visible */
+  box-shadow:
+    0 0 10px 2px rgba(255, 255, 255, 0.95),
+    0 0 24px 8px rgba(255, 220, 170, 0.55);
   opacity: 0;
-  animation: twinkle 5.5s ease-in-out infinite;
+  animation: twinkle 4.5s ease-in-out infinite;
 }
 .hero-sparkles i:nth-child(1)  { top: 18%; left: 12%; animation-delay: 0s;   }
 .hero-sparkles i:nth-child(2)  { top: 30%; left: 26%; animation-delay: 0.6s; }
@@ -2082,8 +2085,9 @@ body.has-cursor * { cursor: none !important; }
 .hero-sparkles i:nth-child(11) { top: 88%; left: 28%; animation-delay: 0.9s; }
 .hero-sparkles i:nth-child(12) { top: 44%; left: 18%; animation-delay: 2.7s; }
 @keyframes twinkle {
-  0%, 100% { opacity: 0; transform: scale(0.4); }
-  50%      { opacity: 1; transform: scale(1); }
+  0%, 100%  { opacity: 0; transform: scale(0.4); }
+  30%, 70%  { opacity: 1; }
+  50%       { opacity: 1; transform: scale(1.3); }
 }
 
 /* ---------- Tilt 3D + glare ---------- */
@@ -2202,7 +2206,12 @@ body.has-cursor * { cursor: none !important; }
      (ensuciarían la imagen) y dejamos solo los destellos por encima. */
   .hero-aura { z-index: 1; }
   .aura-blob { display: none; }
-  .hero-sparkles i { box-shadow: 0 0 8px 2px rgba(255,236,200,0.95); }
+  /* Sobre la foto necesitan aún más contraste que sobre el fondo rosa */
+  .hero-sparkles i {
+    box-shadow:
+      0 0 12px 3px rgba(255, 255, 255, 1),
+      0 0 28px 10px rgba(255, 224, 178, 0.65);
+  }
 }
 
 @media (max-width: 768px) {
