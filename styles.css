@@ -2084,6 +2084,19 @@ body.has-cursor * { cursor: none !important; }
 .hero-sparkles i:nth-child(10) { top: 55%; left: 42%; animation-delay: 3.6s; }
 .hero-sparkles i:nth-child(11) { top: 88%; left: 28%; animation-delay: 0.9s; }
 .hero-sparkles i:nth-child(12) { top: 44%; left: 18%; animation-delay: 2.7s; }
+.hero-sparkles i:nth-child(13) { top: 8%;  left: 44%; animation-delay: 1.0s; }
+.hero-sparkles i:nth-child(14) { top: 26%; left: 6%;  animation-delay: 2.0s; }
+.hero-sparkles i:nth-child(15) { top: 58%; left: 30%; animation-delay: 3.3s; }
+.hero-sparkles i:nth-child(16) { top: 75%; left: 6%;  animation-delay: 1.4s; }
+.hero-sparkles i:nth-child(17) { top: 16%; left: 22%; animation-delay: 4.0s; }
+.hero-sparkles i:nth-child(18) { top: 34%; left: 36%; animation-delay: 0.5s; }
+.hero-sparkles i:nth-child(19) { top: 66%; left: 44%; animation-delay: 2.6s; }
+.hero-sparkles i:nth-child(20) { top: 84%; left: 40%; animation-delay: 3.9s; }
+.hero-sparkles i:nth-child(21) { top: 50%; left: 16%; animation-delay: 4.4s; }
+.hero-sparkles i:nth-child(22) { top: 92%; left: 12%; animation-delay: 1.7s; }
+/* Variedad natural: unos más pequeños y lentos, otros más grandes y vivos */
+.hero-sparkles i:nth-child(3n) { width: 4px; height: 4px; animation-duration: 5.4s; }
+.hero-sparkles i:nth-child(4n) { width: 6px; height: 6px; animation-duration: 3.8s; }
 @keyframes twinkle {
   0%, 100%  { opacity: 0; transform: scale(0.4); }
   30%, 70%  { opacity: 1; }
