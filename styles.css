@@ -2013,6 +2013,10 @@ body.is-loading { overflow: hidden; }
 }
 body.has-cursor .cursor-dot,
 body.has-cursor .cursor-ring { opacity: 1; }
+/* Con el cursor personalizado activo, el nativo se oculta en toda la página
+   (solo en escritorio: .has-cursor se añade únicamente con puntero fino) */
+body.has-cursor,
+body.has-cursor * { cursor: none !important; }
 .cursor-ring.is-hover {
   width: 88px; height: 88px;
   background: radial-gradient(circle, rgba(242,181,160,0.42) 0%, rgba(201,161,95,0.20) 45%, transparent 72%);
