@@ -1767,8 +1767,24 @@ a.contacto-item:hover .contacto-item-icon {
   /* Sobre mí */
   .sobre-images        { height: 360px; }
 
-  /* Servicios — carrusel muestra 1 tarjeta y asoma la siguiente */
-  .samp-card { flex-basis: 82%; }
+  /* Servicios — cada tarjeta ocupa TODO el ancho; las flechas flotan
+     encima de los bordes para no restarle espacio. */
+  .samp-carousel { position: relative; gap: 0; }
+  .samp-track    { padding-left: 0; padding-right: 0; }
+  .samp-card     { flex-basis: 100%; }
+
+  .samp-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    background: rgba(255, 250, 247, 0.9);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+  .samp-arrow:hover { transform: translateY(-50%) scale(1.06); }
+  .samp-prev { left: 6px; }
+  .samp-next { right: 6px; }
 
   /* Resultados */
   .resultados-grid { grid-template-columns: 1fr; }
@@ -1828,8 +1844,8 @@ a.contacto-item:hover .contacto-item-icon {
   .sobre-tags          { gap: 0.4rem; }
   .tag                 { font-size: 0.72rem; padding: 0.35rem 0.8rem; }
 
-  /* Servicios */
-  .samp-card { flex-basis: 84%; }
+  /* Servicios — tarjeta a ancho completo (ver bloque 768px) */
+  .samp-card { flex-basis: 100%; }
   .samp-arrow { width: 42px; height: 42px; }
   .samp-tabs { gap: 0.4rem; }
   .samp-tab  { padding: 8px 16px; font-size: 12px; }
