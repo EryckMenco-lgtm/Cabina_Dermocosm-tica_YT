@@ -141,37 +141,6 @@ const statsObserver = new IntersectionObserver((entries) => {
 const statsSection = document.getElementById('stats');
 if (statsSection) statsObserver.observe(statsSection);
 
-/* ---- Lightbox ---- */
-const lightbox      = document.getElementById('lightbox');
-const lightboxImg   = lightbox?.querySelector('img');
-const lightboxClose = lightbox?.querySelector('.lightbox-close');
-
-document.querySelectorAll('.porto-item[data-src]').forEach(item => {
-  item.addEventListener('click', () => {
-    if (!lightbox || !lightboxImg) return;
-    lightboxImg.src = item.dataset.src;
-    lightboxImg.alt = item.dataset.label || '';
-    lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    window.lenis?.stop();
-  });
-});
-
-lightboxClose?.addEventListener('click', closeLightbox);
-lightbox?.addEventListener('click', (e) => {
-  if (e.target === lightbox) closeLightbox();
-});
-
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeLightbox();
-});
-
-function closeLightbox() {
-  lightbox?.classList.remove('active');
-  document.body.style.overflow = '';
-  window.lenis?.start();
-}
-
 /* ---- Slider de testimonios ---- */
 const slider   = document.querySelector('.testimonios-slider');
 const dots     = document.querySelectorAll('.testim-dot');
@@ -306,8 +275,70 @@ sampTabs.forEach(tab => {
         }, 350);
       }
     });
+    // Al filtrar, volver al inicio del carrusel y recalcular controles
+    sampTrack?.scrollTo({ left: 0, behavior: 'smooth' });
+    setTimeout(updateSampControls, 380);
   });
 });
+
+/* ---- Carrusel deslizable de tratamientos (flechas + progreso + arrastre) ---- */
+const sampTrack    = document.getElementById('samp-track');
+const sampPrev     = document.querySelector('.samp-prev');
+const sampNext     = document.querySelector('.samp-next');
+const sampProgress = document.getElementById('samp-progress-bar');
+
+function sampStep() {
+  const card = [...sampCards].find(c => c.style.display !== 'none');
+  return card ? card.getBoundingClientRect().width + 24 : 320;
+}
+
+function updateSampControls() {
+  if (!sampTrack) return;
+  const maxScroll = sampTrack.scrollWidth - sampTrack.clientWidth;
+  const x = sampTrack.scrollLeft;
+  if (sampPrev) sampPrev.disabled = x <= 2;
+  if (sampNext) sampNext.disabled = x >= maxScroll - 2;
+  if (sampProgress) {
+    const ratio = maxScroll > 0 ? x / maxScroll : 0;
+    const barW  = Math.max(15, (sampTrack.clientWidth / sampTrack.scrollWidth) * 100);
+    sampProgress.style.width = barW + '%';
+    sampProgress.style.marginLeft = (ratio * (100 - barW)) + '%';
+  }
+}
+
+sampPrev?.addEventListener('click', () => sampTrack?.scrollBy({ left: -sampStep(), behavior: 'smooth' }));
+sampNext?.addEventListener('click', () => sampTrack?.scrollBy({ left:  sampStep(), behavior: 'smooth' }));
+sampTrack?.addEventListener('scroll', updateSampControls, { passive: true });
+window.addEventListener('resize', updateSampControls);
+
+if (sampTrack) {
+  // Arrastrar con el mouse en desktop (el táctil usa el scroll nativo)
+  let down = false, startX = 0, startScroll = 0, moved = false;
+  sampTrack.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'touch') return;
+    down = true; moved = false;
+    startX = e.clientX;
+    startScroll = sampTrack.scrollLeft;
+    sampTrack.classList.add('dragging');
+  });
+  window.addEventListener('pointermove', (e) => {
+    if (!down) return;
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) > 4) moved = true;
+    sampTrack.scrollLeft = startScroll - dx;
+  });
+  window.addEventListener('pointerup', () => {
+    if (!down) return;
+    down = false;
+    sampTrack.classList.remove('dragging');
+  });
+  // Un arrastre no debe disparar el botón "Agendar" de la tarjeta
+  sampTrack.addEventListener('click', (e) => {
+    if (moved) { e.preventDefault(); e.stopPropagation(); }
+  }, true);
+  updateSampControls();
+  window.addEventListener('load', updateSampControls);
+}
 
 /* ---- Botones agendar de servicios ampliados ---- */
 document.querySelectorAll('.btn-samp[data-wa]').forEach(btn => {
@@ -685,7 +716,7 @@ function launchFireworks() {
       rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
       if (ring) ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
     });
-    document.querySelectorAll('a, button, .porto-item, .btn, .ba-handle, .samp-tab')
+    document.querySelectorAll('a, button, .btn, .ba-handle, .samp-tab, .samp-arrow')
       .forEach((el) => {
         el.addEventListener('mouseenter', () => ring && ring.classList.add('is-hover'));
         el.addEventListener('mouseleave', () => ring && ring.classList.remove('is-hover'));

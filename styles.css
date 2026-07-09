@@ -294,6 +294,9 @@ footer[id] { scroll-margin-top: 88px; }
 
 .nav-cta { margin-left: 1rem; }
 
+/* El "Agendar cita" del menú solo aparece dentro de la hamburguesa (móvil) */
+.nav-cta-mobile { display: none; }
+
 .hamburger {
   display: none;
   flex-direction: column;
@@ -588,63 +591,6 @@ footer[id] { scroll-margin-top: 88px; }
   font-weight: 500;
 }
 
-/* ---------- Portafolio ---------- */
-#portafolio {
-  padding: var(--space-section) 0;
-  background: var(--blanco);
-}
-
-.portafolio-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.portafolio-masonry {
-  columns: 3;
-  column-gap: 1.25rem;
-}
-
-.porto-item {
-  break-inside: avoid;
-  margin-bottom: 1.25rem;
-  border-radius: var(--radio);
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-}
-
-.porto-item img {
-  display: block;
-  width: 100%;
-  transition: transform 0.6s ease;
-}
-
-.porto-item:hover img { transform: scale(1.05); }
-
-.porto-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(122,92,66,0.75) 0%, transparent 60%);
-  opacity: 0;
-  transition: var(--trans);
-  display: flex;
-  align-items: flex-end;
-  padding: 1.25rem;
-}
-
-.porto-item:hover .porto-overlay { opacity: 1; }
-
-.porto-overlay span {
-  color: var(--blanco);
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-}
-
 /* ---------- Proceso ---------- */
 #proceso {
   padding: var(--space-section) 0;
@@ -737,28 +683,28 @@ footer[id] { scroll-margin-top: 88px; }
 }
 
 .testim-card {
-  min-width: 360px;
+  min-width: 420px;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: var(--radio-lg);
-  padding: 2rem;
+  padding: 2.75rem;
   backdrop-filter: blur(8px);
 }
 
 .testim-stars {
   color: var(--dorado-claro);
-  font-size: 1rem;
-  letter-spacing: 2px;
-  margin-bottom: 1rem;
+  font-size: 1.15rem;
+  letter-spacing: 3px;
+  margin-bottom: 1.25rem;
 }
 
 .testim-card blockquote {
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1.25rem;
   font-style: italic;
-  color: rgba(255,255,255,0.9);
-  line-height: 1.7;
-  margin-bottom: 1.5rem;
+  color: rgba(255,255,255,0.92);
+  line-height: 1.75;
+  margin-bottom: 1.75rem;
 }
 
 .testim-author {
@@ -768,25 +714,26 @@ footer[id] { scroll-margin-top: 88px; }
 }
 
 .testim-avatar {
-  width: 44px; height: 44px;
+  width: 52px; height: 52px;
   border-radius: 50%;
   background: var(--rosa-claro);
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--cafe);
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .testim-info strong {
   display: block;
   color: var(--blanco);
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 .testim-info span {
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   color: rgba(255,255,255,0.5);
 }
 
@@ -812,106 +759,139 @@ footer[id] { scroll-margin-top: 88px; }
   border-radius: 4px;
 }
 
-/* ---------- CTA Banner ---------- */
-#cta-banner {
-  padding: 6rem 0;
-  background: linear-gradient(135deg, var(--rosa-claro) 0%, var(--beige) 100%);
-  text-align: center;
-  position: relative;
+/* ---------- Síguenos en Instagram (maqueta tipo teléfono) ---------- */
+#instagram {
+  padding: var(--space-section) 0;
+  background: linear-gradient(135deg, var(--rosa-claro) 0%, var(--blanco) 60%);
   overflow: hidden;
 }
 
-#cta-banner::before {
-  content: '';
-  position: absolute;
-  top: -80px; right: -80px;
-  width: 300px; height: 300px;
-  border-radius: 50%;
-  background: var(--rosa);
-  opacity: 0.15;
-  pointer-events: none;
+.insta-wrap {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 4rem;
 }
 
-#cta-banner::after {
-  content: '';
-  position: absolute;
-  bottom: -60px; left: -60px;
-  width: 200px; height: 200px;
-  border-radius: 50%;
-  background: var(--dorado);
-  opacity: 0.12;
-  pointer-events: none;
-}
-
-.cta-content { position: relative; z-index: 1; }
-.cta-content .section-title { margin-bottom: 1rem; }
-.cta-content p {
+.insta-copy p {
   color: var(--texto-claro);
-  max-width: 480px;
-  margin: 0 auto 2.5rem;
+  max-width: 42ch;
+  margin: 1rem 0 2rem;
+  line-height: 1.7;
 }
 
-.cta-actions {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
+.insta-follow {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  border: none;
+}
+.insta-follow:hover { filter: brightness(1.06); }
+
+/* Teléfono */
+.insta-phone {
+  position: relative;
+  width: 320px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 12px;
+  background: var(--cafe);
+  border-radius: 42px;
+  box-shadow: 0 30px 70px rgba(61, 33, 15, 0.35), inset 0 0 0 2px rgba(255,255,255,0.06);
 }
 
-/* ---------- Galería Instagram ---------- */
-#instagram {
-  padding: 5rem 0;
+.insta-phone-notch {
+  position: absolute;
+  top: 12px; left: 50%;
+  transform: translateX(-50%);
+  width: 120px; height: 22px;
+  background: var(--cafe);
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+  z-index: 3;
+}
+
+.insta-phone-screen {
   background: var(--blanco);
+  border-radius: 32px;
+  overflow: hidden;
 }
 
-.instagram-header {
+.insta-topbar {
+  padding: 1.5rem 1rem 0.6rem;
   text-align: center;
-  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--beige-oscuro);
 }
-
-.instagram-header a {
+.insta-topbar-brand {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--cafe);
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  color: var(--dorado);
-  font-size: 0.88rem;
-  font-weight: 500;
-  transition: var(--trans);
 }
-.instagram-header a:hover { color: var(--cafe); }
+.insta-topbar-brand i { color: #dc2743; }
 
-.instagram-grid {
+.insta-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.9rem 1rem;
+}
+.insta-avatar {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
+  flex-shrink: 0;
+}
+.insta-avatar img {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--blanco);
+}
+.insta-profile-info { flex: 1; min-width: 0; }
+.insta-stats {
+  display: flex;
+  gap: 0.9rem;
+  margin-bottom: 0.35rem;
+}
+.insta-stats span {
+  font-size: 0.7rem;
+  color: var(--texto-claro);
+}
+.insta-stats strong {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--cafe);
+}
+.insta-handle {
+  display: block;
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--cafe);
+}
+.insta-bio {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--texto-claro);
+}
+
+.insta-feed {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 0.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
 }
-
-.insta-item {
+.insta-cell {
   aspect-ratio: 1;
   overflow: hidden;
-  border-radius: 8px;
-  position: relative;
 }
-
-.insta-item img {
-  height: 100%;
+.insta-cell img {
+  width: 100%; height: 100%;
+  object-fit: cover;
   transition: transform 0.5s ease;
 }
-
-.insta-item:hover img { transform: scale(1.08); }
-
-.insta-hover {
-  position: absolute;
-  inset: 0;
-  background: rgba(122,92,66,0.55);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0;
-  transition: var(--trans);
-  color: var(--blanco);
-  font-size: 1.3rem;
-}
-
-.insta-item:hover .insta-hover { opacity: 1; }
+.insta-cell:hover img { transform: scale(1.08); }
 
 /* ---------- Contacto ---------- */
 #contacto {
@@ -943,6 +923,17 @@ footer[id] { scroll-margin-top: 88px; }
   display: flex;
   align-items: center;
   gap: 1rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Los ítems que son enlaces (WhatsApp / Instagram) responden al hover */
+a.contacto-item { transition: transform 0.3s var(--ease-out); }
+a.contacto-item:hover { transform: translateX(4px); }
+a.contacto-item:hover .contacto-item-icon {
+  background: var(--oro-texto);
+  color: var(--blanco);
+  box-shadow: var(--shadow-gold);
 }
 
 .contacto-item-icon {
@@ -954,6 +945,7 @@ footer[id] { scroll-margin-top: 88px; }
   color: var(--oro-texto); /* iconos Font Awesome dorados, en línea con la marca */
   box-shadow: var(--shadow-sm);
   flex-shrink: 0;
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .contacto-item-text strong {
@@ -968,29 +960,6 @@ footer[id] { scroll-margin-top: 88px; }
 .contacto-item-text span {
   font-size: 0.93rem;
   color: var(--texto);
-}
-
-.contacto-socials {
-  display: flex;
-  gap: 0.75rem;
-  margin-top: 2rem;
-}
-
-.social-link {
-  width: 44px; height: 44px;
-  background: var(--blanco);
-  border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.1rem;
-  box-shadow: var(--shadow-sm);
-  transition: var(--trans);
-  color: var(--cafe);
-}
-
-.social-link:hover {
-  background: var(--oro-texto);
-  color: var(--blanco);
-  transform: translateY(-3px);
 }
 
 /* Formulario */
@@ -1187,51 +1156,6 @@ footer[id] { scroll-margin-top: 88px; }
 
 .footer-bottom a { color: var(--dorado-claro); }
 
-/* ---------- Lightbox ---------- */
-#lightbox {
-  position: fixed;
-  inset: 0;
-  background: rgba(30, 15, 5, 0.92);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  padding: 2rem;
-}
-
-#lightbox.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-#lightbox img {
-  max-width: 90vw;
-  max-height: 85vh;
-  width: auto;
-  height: auto;
-  border-radius: var(--radio);
-  object-fit: contain;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-}
-
-.lightbox-close {
-  position: absolute;
-  top: 1.5rem; right: 1.5rem;
-  background: rgba(255,255,255,0.1);
-  border: none;
-  color: #fff;
-  width: 44px; height: 44px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.2rem;
-  display: flex; align-items: center; justify-content: center;
-  transition: var(--trans);
-}
-.lightbox-close:hover { background: rgba(255,255,255,0.25); }
-
 /* ---------- WhatsApp flotante ---------- */
 .whatsapp-float {
   position: fixed;
@@ -1416,13 +1340,83 @@ footer[id] { scroll-margin-top: 88px; }
   transform: translateY(-2px);
 }
 
-.samp-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+/* ── Carrusel deslizable de tratamientos ──
+   Factor diferenciador vs. testimonios: aquí se ARRASTRA/desliza con
+   scroll-snap + flechas + barra de progreso (no autoplay ni puntos). */
+.samp-carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
+.samp-track {
+  display: flex;
+  gap: 24px;
+  flex: 1;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 10px 4px 22px;
+  scrollbar-width: none;            /* Firefox */
+  -ms-overflow-style: none;
+  cursor: grab;
+}
+.samp-track::-webkit-scrollbar { display: none; }  /* WebKit */
+.samp-track.dragging { cursor: grabbing; scroll-behavior: auto; scroll-snap-type: none; }
+.samp-track.dragging .samp-card { pointer-events: none; }
+
+.samp-arrow {
+  flex-shrink: 0;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid var(--beige-oscuro);
+  background: var(--blanco);
+  color: var(--oro-texto);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.95rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s var(--ease-out), background 0.3s ease, color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+  z-index: 2;
+}
+.samp-arrow:hover {
+  background: var(--oro-texto);
+  color: var(--blanco);
+  transform: scale(1.08);
+  box-shadow: var(--shadow-gold);
+}
+.samp-arrow:disabled { opacity: 0.3; cursor: default; pointer-events: none; }
+
+.samp-progress {
+  height: 4px;
+  width: 100%;
+  max-width: 280px;
+  margin: 6px auto 0;
+  background: var(--beige-oscuro);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.samp-progress span {
+  display: block;
+  height: 100%;
+  width: 30%;
+  background: linear-gradient(to right, var(--oro-texto), var(--dorado));
+  border-radius: 4px;
+  transition: width 0.2s ease, margin-left 0.2s ease;
+}
+.samp-hint {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 0.8rem;
+  color: var(--texto-claro);
+  letter-spacing: 0.02em;
+}
+.samp-hint i { color: var(--oro-texto); margin-right: 5px; }
+
 .samp-card {
+  flex: 0 0 clamp(280px, 31%, 360px);
+  scroll-snap-align: start;
   background: var(--blanco);
   border-radius: var(--radio-lg);
   overflow: hidden;
@@ -1616,8 +1610,8 @@ footer[id] { scroll-margin-top: 88px; }
   .sobre-img-secondary { display: none; }
   .sobre-decoration    { display: none; }
 
-  /* Servicios */
-  .samp-grid { grid-template-columns: repeat(2, 1fr); }
+  /* Servicios — carrusel muestra ~2 tarjetas */
+  .samp-card { flex-basis: 45%; }
 
   /* Resultados */
   .resultados-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1626,8 +1620,9 @@ footer[id] { scroll-margin-top: 88px; }
   .proceso-steps { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
   .proceso-steps::before { display: none; }
 
-  /* Instagram */
-  .instagram-grid { grid-template-columns: repeat(4, 1fr); }
+  /* Instagram — texto arriba, teléfono debajo */
+  .insta-wrap { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
+  .insta-copy p { margin-left: auto; margin-right: auto; }
 
   /* Contacto */
   .contacto-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -1733,13 +1728,14 @@ footer[id] { scroll-margin-top: 88px; }
   .nav-logo  { transition: opacity 0.3s ease, visibility 0.3s ease; }
 
   /* Isotipo más grande y sobre un "chip" blanco: el trazo dorado fino
-     desaparecía contra la foto del hero */
+     desaparecía contra la foto del hero. Se amplía para que el logo y sus
+     letras se lean con claridad. */
   .nav-logo img {
-    width: 60px; height: 60px;
-    padding: 7px;
-    background: rgba(255, 250, 247, 0.92);
+    width: 72px; height: 72px;
+    padding: 9px;
+    background: rgba(255, 250, 247, 0.96);
     border-radius: 50%;
-    box-shadow: 0 2px 12px rgba(74, 48, 30, 0.22);
+    box-shadow: 0 3px 16px rgba(74, 48, 30, 0.28);
   }
 
   /* Al abrir el menú, desvanecer el logo suavemente. Doble vía: clase del JS
@@ -1794,13 +1790,21 @@ footer[id] { scroll-margin-top: 88px; }
   }
   .nav-links a:hover { color: var(--oro-texto); padding-left: 0.5rem; }
 
-  /* Hero overlay más denso abajo */
+  /* "Agendar cita" dentro del menú hamburguesa */
+  .nav-cta-mobile { display: block; border-bottom: none; margin-top: 1.25rem; }
+  .nav-cta-mobile .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.9rem 1rem;
+  }
+
+  /* Hero overlay más denso abajo — mejora la legibilidad del texto sobre la foto */
   .hero-overlay {
     background: linear-gradient(
       to bottom,
-      rgba(0, 0, 0, 0.05) 0%,
-      rgba(242, 181, 160, 0.45) 50%,
-      rgba(100, 70, 45, 0.80) 100%
+      rgba(0, 0, 0, 0.08) 0%,
+      rgba(242, 181, 160, 0.45) 45%,
+      rgba(90, 62, 40, 0.88) 100%
     );
   }
 
@@ -1809,15 +1813,18 @@ footer[id] { scroll-margin-top: 88px; }
   .hero-badge { display: none; }
   .hero-scroll { z-index: 3; }
 
+  /* Título del hero más legible sobre la foto: sombra más marcada */
+  .hero-title,
+  .hero-sub,
+  .hero-eyebrow span {
+    text-shadow: 0 2px 6px rgba(45, 25, 10, 0.85), 0 10px 30px rgba(45, 25, 10, 0.55);
+  }
+
   /* Sobre mí */
   .sobre-images        { height: 360px; }
 
-  /* Servicios */
-  .samp-grid { grid-template-columns: 1fr; }
-
-  /* Portafolio */
-  .portafolio-masonry { columns: 2; column-gap: 1rem; }
-  .portafolio-header  { flex-direction: column; align-items: flex-start; }
+  /* Servicios — carrusel muestra 1 tarjeta y asoma la siguiente */
+  .samp-card { flex-basis: 82%; }
 
   /* Resultados */
   .resultados-grid { grid-template-columns: 1fr; }
@@ -1826,16 +1833,7 @@ footer[id] { scroll-margin-top: 88px; }
   .proceso-steps { grid-template-columns: 1fr; gap: 1.5rem; }
 
   /* Testimonios */
-  .testim-card { min-width: 280px; }
-
-  /* CTA */
-  .cta-actions { flex-direction: column; align-items: center; }
-
-  /* Instagram */
-  .instagram-grid { grid-template-columns: repeat(3, 1fr); }
-
-  /* Contacto */
-  .contacto-socials { justify-content: flex-start; }
+  .testim-card { min-width: 300px; padding: 2rem; }
 
   /* Footer: marca centrada arriba; Servicios y Navegación lado a lado
      para aprovechar todo el ancho (antes quedaba una columna pegada al costado) */
@@ -1887,13 +1885,11 @@ footer[id] { scroll-margin-top: 88px; }
   .tag                 { font-size: 0.72rem; padding: 0.35rem 0.8rem; }
 
   /* Servicios */
-  .samp-grid { grid-template-columns: 1fr; }
+  .samp-card { flex-basis: 84%; }
+  .samp-arrow { width: 42px; height: 42px; }
   .samp-tabs { gap: 0.4rem; }
   .samp-tab  { padding: 8px 16px; font-size: 12px; }
   .samp-img  { height: 180px; }
-
-  /* Portafolio */
-  .portafolio-masonry { columns: 1; }
 
   /* Resultados */
   .resultados-grid { grid-template-columns: 1fr; }
@@ -1904,11 +1900,11 @@ footer[id] { scroll-margin-top: 88px; }
   .step-card     { padding: 1.5rem 0.75rem; }
 
   /* Testimonios */
-  .testim-card { min-width: 260px; padding: 1.5rem; }
-  .testim-card blockquote { font-size: 0.95rem; }
+  .testim-card { min-width: 280px; padding: 1.75rem; }
+  .testim-card blockquote { font-size: 1.05rem; }
 
-  /* Instagram */
-  .instagram-grid { grid-template-columns: repeat(2, 1fr); gap: 0.35rem; }
+  /* Instagram — el teléfono se reduce un poco */
+  .insta-phone { width: 280px; }
 
   /* Contacto */
   .contacto-form { padding: 1.75rem 1.25rem; }
@@ -1931,9 +1927,9 @@ footer[id] { scroll-margin-top: 88px; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .stat-num   { font-size: 1.6rem; }
 
-  .instagram-grid { grid-template-columns: repeat(2, 1fr); }
+  .insta-phone { width: 260px; }
 
-  .testim-card { min-width: 240px; }
+  .testim-card { min-width: 260px; }
 
   .samp-tab { padding: 7px 12px; font-size: 11px; }
 }
