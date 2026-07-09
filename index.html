@@ -46,7 +46,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="styles.css?v=7" />
+  <link rel="stylesheet" href="styles.css?v=10" />
 
   <!-- Preloader solo en la primera visita de la sesión (evita el re-arranque en cada recarga) -->
   <script>
@@ -735,35 +735,10 @@
         </a>
       </div>
 
-      <div class="insta-phone fade-up" aria-hidden="true">
+      <div class="insta-phone fade-up">
         <div class="insta-phone-notch"></div>
         <div class="insta-phone-screen">
-          <div class="insta-topbar">
-            <span class="insta-topbar-brand"><i class="fab fa-instagram"></i> cabinadermocosmeticayt</span>
-          </div>
-          <div class="insta-profile">
-            <div class="insta-avatar"><img src="img/portafolio-reserva/Yeni.webp" alt="Yennifer Torres" /></div>
-            <div class="insta-profile-info">
-              <div class="insta-stats">
-                <span><strong>120+</strong> pub.</span>
-                <span><strong>2.5k</strong> seg.</span>
-                <span><strong>5★</strong> reseñas</span>
-              </div>
-              <span class="insta-handle">Cabina Dermocosmética YT</span>
-              <span class="insta-bio">✨ Tu piel, nuestra pasión · Barranquilla</span>
-            </div>
-          </div>
-          <div class="insta-feed">
-            <div class="insta-cell"><img src="img/portafolio-reserva/Clienta feliz.jpg" alt="Clienta feliz" loading="lazy" /></div>
-            <div class="insta-cell"><img src="img/portafolio-reserva/higiene facial.webp" alt="Higiene facial" loading="lazy" /></div>
-            <div class="insta-cell"><img src="img/portafolio-reserva/Piel saludable.webp" alt="Piel saludable" loading="lazy" /></div>
-            <div class="insta-cell"><img src="img/portafolio-reserva/Vitaminas.webp" alt="Vitaminas para la piel" loading="lazy" /></div>
-            <div class="insta-cell"><img src="img/portafolio-reserva/Experiencia1.webp" alt="Experiencia en cabina" loading="lazy" /></div>
-            <div class="insta-cell"><img src="img/portafolio-reserva/cuida tu piel.webp" alt="Cuida tu piel" loading="lazy" /></div>
-            <div class="insta-cell"><img src="img/portafolio-reserva/higiene profunca.webp" alt="Higiene profunda" loading="lazy" /></div>
-            <div class="insta-cell"><img src="img/portafolio-reserva/Como el sol afecta tu piel.webp" alt="Cómo el sol afecta tu piel" loading="lazy" /></div>
-            <div class="insta-cell"><img src="img/portafolio-reserva/Desmaquillate.webp" alt="Desmaquíllate" loading="lazy" /></div>
-          </div>
+          <img class="insta-screenshot" src="img/instagram-perfil.png" alt="Perfil de Instagram de Cabina Dermocosmética YT" loading="lazy" />
         </div>
       </div>
 
@@ -773,43 +748,12 @@
   <!-- ==================== CONTACTO ==================== -->
   <section id="contacto">
     <div class="container">
-      <div class="contacto-grid">
+      <div class="contacto-stack">
 
-        <div class="contacto-info fade-up">
+        <div class="contacto-head fade-up">
           <span class="section-label">Contáctanos</span>
           <h2 class="section-title">Hablemos sobre <em>tu piel</em></h2>
-          <p>Estamos listas para atenderte y ayudarte a alcanzar la piel que siempre has deseado. Escríbenos y agendamos tu cita.</p>
-
-          <div class="contacto-items">
-            <a class="contacto-item" href="https://wa.me/573017270612?text=Hola%2C+quiero+agendar+una+cita" target="_blank" rel="noopener">
-              <div class="contacto-item-icon"><i class="fab fa-whatsapp"></i></div>
-              <div class="contacto-item-text">
-                <strong>WhatsApp</strong>
-                <span>+57 301 727 0612</span>
-              </div>
-            </a>
-            <a class="contacto-item" href="https://www.instagram.com/cabinadermocosmeticayt" target="_blank" rel="noopener">
-              <div class="contacto-item-icon"><i class="fab fa-instagram"></i></div>
-              <div class="contacto-item-text">
-                <strong>Instagram</strong>
-                <span>@cabinadermocosmeticayt</span>
-              </div>
-            </a>
-            <div class="contacto-item">
-              <div class="contacto-item-icon"><i class="fas fa-location-dot"></i></div>
-              <div class="contacto-item-text">
-                <strong>Ubicación</strong>
-                <span>Carrera 44 #80-223, Barranquilla</span>
-              </div>
-            </div>
-            <div class="contacto-item">
-              <div class="contacto-item-icon"><i class="far fa-clock"></i></div>
-              <div class="contacto-item-text">
-                <strong>Horario</strong>
-                <span>Lunes a Sábado · 8:00 am – 6:00 pm</span>
-              </div>
-            </div>
-          </div>
+          <p>Estamos listas para atenderte y ayudarte a alcanzar la piel que siempre has deseado. Déjanos tus datos y te escribimos para agendar tu cita.</p>
         </div>
 
         <div class="contacto-form fade-up">
@@ -854,6 +798,23 @@
 
             <p id="form-feedback" class="form-feedback" role="status" aria-live="polite"></p>
           </form>
+        </div>
+
+        <div class="contacto-items fade-up">
+          <div class="contacto-item">
+            <div class="contacto-item-icon"><i class="fas fa-location-dot"></i></div>
+            <div class="contacto-item-text">
+              <strong>Ubicación</strong>
+              <span>Carrera 44 #80-223, Barranquilla</span>
+            </div>
+          </div>
+          <div class="contacto-item">
+            <div class="contacto-item-icon"><i class="far fa-clock"></i></div>
+            <div class="contacto-item-text">
+              <strong>Horario</strong>
+              <span>Lunes a Sábado · 8:00 am – 6:00 pm</span>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -915,6 +876,6 @@
   <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 
   <!-- JS -->
-  <script defer src="script.js?v=7"></script>
+  <script defer src="script.js?v=10"></script>
 </body>
 </html>
