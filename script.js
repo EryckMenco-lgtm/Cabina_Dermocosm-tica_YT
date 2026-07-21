@@ -1,5 +1,5 @@
 /* ============================================================
-   script.js — Cabina Dermocosmética YT
+   script.js — AbancySkin
    ============================================================ */
 
 /* ---- Navbar scroll ---- */
@@ -537,7 +537,7 @@ function launchFireworks() {
      ==================================================== */
   const heroTitle  = document.querySelector('.hero-title');
   const heroWords  = heroTitle ? splitWords(heroTitle) : [];
-  const heroExtras = ['.hero-eyebrow', '.hero-sub', '.hero-actions', '.hero-badge']
+  const heroExtras = ['.hero-logo-mark', '.hero-eyebrow', '.hero-sub', '.hero-actions', '.hero-badge']
                        .map((s) => document.querySelector(s)).filter(Boolean);
 
   if (heroWords.length) gsap.set(heroWords, { yPercent: 120, opacity: 0 });
